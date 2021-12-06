@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: black;
+    height: 100vh;
+    margin: 0;
+    font-family: monospace;
+  }
+  
+  #container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 12px;
+  }
+  
+  #container:focus {
+    outline: none;
+  }
+  #source {
+    color: #2ad400;
+    font-size: 16px;
+    white-space: pre-wrap;
+  }
+  
+  .blurred {
+    filter: blur(0.8px);
+  }
+  
+  #access-msg {
+    font-size: 3rem;
+    text-align: center;
+    border: 2px solid;
+    padding: 1.5rem;
+    position: absolute;
+    z-index: 99;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .success {
+    color: #10ff00;
+    display: block;
+    animation: accessAnimation 0.5s 2 0s linear;
+  }
+  
+  .denied {
+    color: red;
+    display: block;
+    animation: accessAnimation 0.5s 2 0s linear;
+  }
+  
+  @keyframes accessAnimation {
+    0% {
+      opacity: 1;
+    }
+  
+    50% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  #container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #container {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  
+  #source:after {
+    content: "_";
+    display: inline-block;
+    animation: blink 0.75s infinite;
+    font-weight: bold;
+  }
+  
+  @keyframes blink {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

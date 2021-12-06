@@ -1,6 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-
+import HackerTyper from "./hackerTyper/HackerTyper";
 export default function App() {
   return (
     <Router>
@@ -33,7 +33,9 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path="/hacker-typer">{/*<HackerTyper />*/}</Route>
+          <Route path="/hacker-typer">
+            <HackerTyper />
+          </Route>
 
           <Route path="/todolist">{/*<ToDoList />*/}</Route>
 
