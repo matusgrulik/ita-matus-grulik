@@ -1,5 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { TTTApp } from "./TicTacToe/TicTacToeApp";
 
 export default function App() {
   return (
@@ -38,7 +39,7 @@ export default function App() {
           <Route path="/todolist">{/*<ToDoList />*/}</Route>
 
           <Route path="/tictactoe">
-            <div>tictactoe</div>
+            <TTTApp />
           </Route>
 
           <Route path="/">
