@@ -1,7 +1,7 @@
-import "./toDoList.css";
 import { ITask } from "./Interfaces";
+import { ToDoTask } from "./Components/ToDoTask";
 import React, { ChangeEvent, useState } from "react";
-import ToDoTask from "./Components/ToDoTask";
+import styled from "styled-components";
 
 function ToDoList() {
   const [task, setTask] = useState<String>("");
@@ -30,10 +30,11 @@ function ToDoList() {
     );
   };
   return (
-    <div className="App">
-      <div className="header">
-        <div className="inputContainer">
-          <input
+    <App>
+      <style>{`body { background-color: #000; margin: 0, padding: 0`}</style>
+      <Header>
+        <InputContainer>
+          <Input
             type="text"
             placeholder="Your Task..."
             name="task"
@@ -41,7 +42,7 @@ function ToDoList() {
             value={task}
             onChange={handleChange}
           />
-          <input
+          <Input
             type="number"
             placeholder="Deadline..."
             name="deadline"
@@ -49,16 +50,64 @@ function ToDoList() {
             value={deadline}
             onChange={handleChange}
           />
-        </div>
-        <button onClick={addTask}>Add Task</button>
-      </div>
-      <div className="todoList">
+        </InputContainer>
+        <Button onClick={addTask}>Add Task</Button>
+      </Header>
+      <Todolist>
         {todoList.map((task: ITask, key: number) => {
           return <ToDoTask key={key} task={task} completeTask={completeTask} />;
         })}
-      </div>
-    </div>
+      </Todolist>
+    </App>
   );
 }
-
-export default ToDoList;
+const App = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+const Header = styled.div`
+  flex: 30%;
+  background-color: green;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+`;
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Input = styled.input`
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  padding-left: 10px;
+  font-size: 17px;
+  border: 1px solid green;
+`;
+const Button = styled.button`
+  background: red;
+  width: 70px;
+  height: 87px;
+  border: none;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  padding-left: 10px;
+  cursor: pointer;
+`;
+const Todolist = styled.div`
+  flex: 70%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: 50px;
+  flex-direction: column;
+`;
+export { ToDoList };

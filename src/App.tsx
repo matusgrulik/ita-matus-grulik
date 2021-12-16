@@ -1,6 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import ToDoList from "./ToDoList/ToDoList";
+import { ToDoList } from "./ToDoList/ToDoList";
 
 export default function App() {
   return (
