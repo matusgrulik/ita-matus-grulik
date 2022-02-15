@@ -1,4 +1,5 @@
 import "./App.css";
+import { BlogApp } from "./blog/BlogApp";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 export default function App() {
@@ -29,6 +30,11 @@ export default function App() {
                 Tic Tac Toe
               </Link>
             </div>
+            <div>
+              <Link to="/blog" style={{ color: "green" }}>
+                Blog
+              </Link>
+            </div>
           </div>
         </nav>
 
@@ -40,6 +46,8 @@ export default function App() {
           <Route path="/tictactoe">
             <div>tictactoe</div>
           </Route>
+
+          <Route path="/blog">{<BlogApp />}</Route>
 
           <Route path="/">
             <div>
