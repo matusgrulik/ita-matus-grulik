@@ -1,5 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { PexesoApp } from "./Pexeso/PexesoApp";
 
 export default function App() {
   return (
@@ -29,6 +30,16 @@ export default function App() {
                 Tic Tac Toe
               </Link>
             </div>
+            <div>
+              <Link to="/blogpost" style={{ color: "green" }}>
+                Blog
+              </Link>
+            </div>
+            <div>
+              <Link to="/pexeso" style={{ color: "green" }}>
+                Pexeso
+              </Link>
+            </div>
           </div>
         </nav>
 
@@ -40,6 +51,10 @@ export default function App() {
           <Route path="/tictactoe">
             <div>tictactoe</div>
           </Route>
+          <Route path="/blogpost">
+            <div>Blog</div>
+          </Route>
+          <Route path="/pexeso">{<PexesoApp />}</Route>
 
           <Route path="/">
             <div>
