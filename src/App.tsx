@@ -1,5 +1,7 @@
 import "./App.css";
+import { CounterInRedux, store } from "./CounterRedux/CounterApp";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 
 export default function App() {
   return (
@@ -29,6 +31,11 @@ export default function App() {
                 Tic Tac Toe
               </Link>
             </div>
+            <div>
+              <Link to="/counterRedux" style={{ color: "green" }}>
+                Counter In Redux
+              </Link>
+            </div>
           </div>
         </nav>
 
@@ -40,6 +47,11 @@ export default function App() {
           <Route path="/tictactoe">
             <div>tictactoe</div>
           </Route>
+          <Provider store={store}>
+            <Route path="/counterRedux">
+              <CounterInRedux />
+            </Route>
+          </Provider>
 
           <Route path="/">
             <div>
