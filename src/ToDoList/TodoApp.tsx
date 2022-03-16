@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
+import { LinkActive, LinkAll, LinkCompleted } from "./UrlBasement";
 import {
-  NavLink,
   Redirect,
   Route,
   BrowserRouter as Router,
@@ -13,21 +13,10 @@ import { themes } from "./Theme";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-//STYLE
-
 const H1 = styled.h1`
   margin-left: 1em;
   margin-bottom: 1em;
   text-transform: uppercase;
-`;
-const NavLinkStyled = styled(NavLink)`
-  color: ${themes.primaryColor};
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 1.2em;
-  &.active {
-    color: ${themes.secondaryColor};
-  }
 `;
 
 const DivTaskFilters = styled.div`
@@ -77,8 +66,6 @@ const DivAddTaskBox = styled.div`
   color: ${themes.primaryColor};
 `;
 
-//CODE//
-
 const getTasksFromStorage = (name: string) => {
   const data = localStorage.getItem(name);
   return data
@@ -115,8 +102,9 @@ export const TodoApp = () => {
       return;
     }
     const d = new Date();
+    const getId = Math.random().toString(36).replace("0.", "");
     const newTask: TaskType = {
-      id: Math.random().toString(36).replace("0.", ""),
+      id: getId,
       text: taskInput,
       completed: false,
       createdAt: d.getTime(),
@@ -128,16 +116,18 @@ export const TodoApp = () => {
 
   const toggleTask = (id: string) => {
     const d = new Date();
-    setTasks((p) => {
-      return p.map((task) => {
-        if (task.id === id) {
-          return task.completed
-            ? { ...task, completed: false, completedAt: null }
-            : { ...task, completed: true, completedAt: d.getTime() };
-        }
-        return task;
-      });
-    });
+    setTasks((p) =>
+      p.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              completed: !task.completed,
+              completedAt: task.completed ? null : new Date().getTime(),
+            }
+          : task
+      )
+    );
+
     focusMe.current?.focus();
   };
 
@@ -158,7 +148,7 @@ export const TodoApp = () => {
       <DivWrapper>
         <H1>To do list application</H1>
         <DivAddTaskBox>
-          <InputAddTaskInput
+          <InputAddTask
             autoFocus
             ref={focusMe}
             type="text"
@@ -172,9 +162,9 @@ export const TodoApp = () => {
           </Button>
         </DivAddTaskBox>
         <DivTaskFilters>
-          <NavLinkStyled to="/todo/all">All</NavLinkStyled>
-          <NavLinkStyled to="/todo/active">Active</NavLinkStyled>
-          <NavLinkStyled to="/todo/completed">Completed</NavLinkStyled>
+          <LinkAll />
+          <LinkActive />
+          <LinkCompleted />
         </DivTaskFilters>
         <DivTaskList>
           <Switch>

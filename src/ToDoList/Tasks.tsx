@@ -9,12 +9,10 @@ export const Tasks = (props: {
   return (
     <>
       {props.tasks
-        .sort((t1, t2) => {
-          return t2.createdAt - t1.createdAt;
-        })
-        .sort((t1, t2) => {
-          return t1.completed === t2.completed ? 0 : t1.completed ? 1 : -1;
-        })
+        .sort((t1, t2) => t2.createdAt - t1.createdAt)
+        .sort((t1, t2) =>
+          t1.completed === t2.completed ? 0 : t1.completed ? 1 : -1
+        )
         .map((task) => {
           if (props.filterFunc(task))
             return (

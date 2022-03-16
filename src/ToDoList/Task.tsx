@@ -2,8 +2,6 @@ import { TickIcon, TrashIcon } from "./Icons";
 import { themes } from "./Theme";
 import styled from "styled-components";
 
-//STYLE//
-
 const DivTask = styled.div<{ completed: boolean }>`
   background: transparent;
   display: flex;
@@ -25,8 +23,6 @@ const Button = styled.button`
     height: 2em;
   }
 `;
-
-//CODE//
 
 export type TaskType = {
   id: string;
