@@ -9,6 +9,7 @@ import {
 import { TaskType } from "./Task";
 import { Tasks } from "./Tasks";
 import { TickIcon } from "./Icons";
+import { getTasksFromStorage, saveToStorage } from "./utils";
 import { themes } from "./Theme";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -66,36 +67,10 @@ const DivAddTaskBox = styled.div`
   color: ${themes.primaryColor};
 `;
 
-const getTasksFromStorage = (name: string) => {
-  const data = localStorage.getItem(name);
-  return data
-    ? (JSON.parse(data) as TaskType[])
-    : ([
-        {
-          id: "956465168",
-          text: "Add new task ↑",
-          completed: false,
-          createdAt: 42,
-          completedAt: null,
-        },
-      ] as TaskType[]);
-};
-
-const saveToStorage = <T,>(name: string, payload: T) => {
-  localStorage.setItem(name, JSON.stringify(payload));
-};
-
-const STORAGE_NAME = "todoApp";
-
 export const TodoApp = () => {
-  const [tasks, setTasks] = useState(getTasksFromStorage(STORAGE_NAME));
+  const [tasks, setTasks] = useState(getTasksFromStorage());
   const [taskInput, setTaskInput] = useState("");
   const focusMe = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    saveToStorage(STORAGE_NAME, tasks);
-  }, [tasks]);
-
   const addTask = () => {
     if (taskInput === "") {
       focusMe.current?.focus();
@@ -110,6 +85,7 @@ export const TodoApp = () => {
       createdAt: d.getTime(),
       completedAt: null,
     };
+    saveToStorage([...tasks, newTask]);
     setTasks((p) => [...p, newTask]);
     setTaskInput("");
   };
@@ -174,9 +150,7 @@ export const TodoApp = () => {
                 tasks={tasks}
                 deleteTask={deleteTask}
                 toggleTask={toggleTask}
-                filterFunc={() => {
-                  return true;
-                }}
+                filterType="all"
               />
             </Route>
             <Route exact path="/todo/active">
@@ -184,9 +158,7 @@ export const TodoApp = () => {
                 tasks={tasks}
                 deleteTask={deleteTask}
                 toggleTask={toggleTask}
-                filterFunc={(task) => {
-                  return !task.completed;
-                }}
+                filterType="active"
               />
             </Route>
             <Route exact path="/todo/completed">
@@ -194,9 +166,7 @@ export const TodoApp = () => {
                 tasks={tasks}
                 deleteTask={deleteTask}
                 toggleTask={toggleTask}
-                filterFunc={(task) => {
-                  return task.completed;
-                }}
+                filterType="completed"
               />
             </Route>
           </Switch>

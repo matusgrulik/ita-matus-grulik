@@ -4,26 +4,31 @@ export const Tasks = (props: {
   tasks: TaskType[];
   deleteTask: (id: string) => void;
   toggleTask: (id: string) => void;
-  filterFunc: (task: TaskType) => boolean;
+  filterType: "all" | "completed" | "active";
 }) => {
+  const filteredTasks =
+    props.filterType === "all"
+      ? props.tasks
+      : props.tasks.filter((task) =>
+          props.filterType === "completed" ? task.completed : !task.completed
+        );
+
+  const sortedTaskByTime = filteredTasks.sort(
+    (t1, t2) => t2.createdAt - t1.createdAt
+  );
+  const sortedTasks = sortedTaskByTime.sort((t1, t2) =>
+    t1.completed === t2.completed ? 0 : t1.completed ? 1 : -1
+  );
   return (
     <>
-      {props.tasks
-        .sort((t1, t2) => t2.createdAt - t1.createdAt)
-        .sort((t1, t2) =>
-          t1.completed === t2.completed ? 0 : t1.completed ? 1 : -1
-        )
-        .map((task) => {
-          if (props.filterFunc(task))
-            return (
-              <Task
-                key={task.id}
-                task={task}
-                deleteTask={props.deleteTask}
-                toggleTask={props.toggleTask}
-              />
-            );
-        })}
+      {sortedTasks.map((task) => (
+        <Task
+          key={task.id}
+          task={task}
+          deleteTask={props.deleteTask}
+          toggleTask={props.toggleTask}
+        />
+      ))}
     </>
   );
 };
