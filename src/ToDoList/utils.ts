@@ -1,16 +1,30 @@
-import { TaskType } from "./Task";
+import { useState } from "react";
 const STORAGE_NAME = "todoApp";
 
-export const getTasksFromStorage = () => {
-  const data = localStorage.getItem(STORAGE_NAME);
-  try {
-    const parsedTasks = data ? (JSON.parse(data) as TaskType[]) : [];
-    return parsedTasks;
-  } catch {
-    return [];
-  }
-};
-
-export const saveToStorage = <T>(payload: T) => {
-  localStorage.setItem(STORAGE_NAME, JSON.stringify(payload));
-};
+export function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    if (typeof window === "undefined") {
+      return initialValue;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      [];
+      return initialValue;
+    }
+  });
+  const setValue = (value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      [];
+    }
+  };
+  return [storedValue, setValue];
+}

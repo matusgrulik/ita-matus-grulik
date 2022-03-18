@@ -9,9 +9,9 @@ import {
 import { TaskType } from "./Task";
 import { Tasks } from "./Tasks";
 import { TickIcon } from "./Icons";
-import { getTasksFromStorage, saveToStorage } from "./utils";
 import { themes } from "./Theme";
-import { useEffect, useRef, useState } from "react";
+import { useLocalStorage } from "./utils";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
 const H1 = styled.h1`
@@ -68,7 +68,8 @@ const DivAddTaskBox = styled.div`
 `;
 
 export const TodoApp = () => {
-  const [tasks, setTasks] = useState(getTasksFromStorage());
+  const STORAGE_NAME = "todoApp";
+  const [tasks, setTasks] = useLocalStorage(STORAGE_NAME, []);
   const [taskInput, setTaskInput] = useState("");
   const focusMe = useRef<HTMLInputElement>(null);
   const addTask = () => {
@@ -85,7 +86,6 @@ export const TodoApp = () => {
       createdAt: d.getTime(),
       completedAt: null,
     };
-    saveToStorage([...tasks, newTask]);
     setTasks((p) => [...p, newTask]);
     setTaskInput("");
   };
