@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { themes } from "./Theme";
-import React from "react";
 import styled from "styled-components";
 const NavLinkStyled = styled(NavLink)`
   color: ${themes.primaryColor};
@@ -11,18 +10,13 @@ const NavLinkStyled = styled(NavLink)`
     color: ${themes.secondaryColor};
   }
 `;
-export class LinkAll extends React.Component<any, any> {
-  render() {
-    return <NavLinkStyled to="/todo/all">All</NavLinkStyled>;
-  }
-}
-export class LinkActive extends React.Component<any, any> {
-  render() {
-    return <NavLinkStyled to="/todo/active">Active</NavLinkStyled>;
-  }
-}
-export class LinkCompleted extends React.Component<any, any> {
-  render() {
-    return <NavLinkStyled to="/todo/completed">Completed</NavLinkStyled>;
-  }
-}
+export const LinkAll = () => {
+  return <NavLinkStyled to="/todo/all">All</NavLinkStyled>;
+};
+
+export const LinkActive = () => {
+  return <NavLinkStyled to="/todo/active">Active</NavLinkStyled>;
+};
+export const LinkCompleted = () => {
+  return <NavLinkStyled to="/todo/completed">Completed</NavLinkStyled>;
+};

@@ -1,7 +1,9 @@
 import { useState } from "react";
-const STORAGE_NAME = "todoApp";
 
-export function useLocalStorage(key, initialValue) {
+export const STORAGE_NAME = "todoApp";
+
+//** INSPIRATION  FROM https://usehooks.com/useLocalStorage/ **//
+export const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -27,4 +29,4 @@ export function useLocalStorage(key, initialValue) {
     }
   };
   return [storedValue, setValue];
-}
+};

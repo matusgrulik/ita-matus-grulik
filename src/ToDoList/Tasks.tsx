@@ -9,9 +9,11 @@ export const Tasks = (props: {
   const filteredTasks =
     props.filterType === "all"
       ? props.tasks
-      : props.tasks.filter((task) =>
-          props.filterType === "completed" ? task.completed : !task.completed
-        );
+      : props.filterType === "completed"
+      ? props.tasks.filter((t) => t.completed)
+      : props.filterType === "active"
+      ? props.tasks.filter((t) => !t.completed)
+      : [];
 
   const sortedTaskByTime = filteredTasks.sort(
     (t1, t2) => t2.createdAt - t1.createdAt

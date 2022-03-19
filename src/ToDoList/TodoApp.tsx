@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
 } from "react-router-dom";
-import { TaskType } from "./Task";
+import { STORAGE_NAME } from "./utils";
 import { Tasks } from "./Tasks";
 import { TickIcon } from "./Icons";
 import { themes } from "./Theme";
@@ -66,9 +66,10 @@ const DivAddTaskBox = styled.div`
   margin-bottom: 2em;
   color: ${themes.primaryColor};
 `;
-
+const GetId = () => {
+  Math.random().toString(36).replace("0.", "");
+};
 export const TodoApp = () => {
-  const STORAGE_NAME = "todoApp";
   const [tasks, setTasks] = useLocalStorage(STORAGE_NAME, []);
   const [taskInput, setTaskInput] = useState("");
   const focusMe = useRef<HTMLInputElement>(null);
@@ -78,9 +79,8 @@ export const TodoApp = () => {
       return;
     }
     const d = new Date();
-    const getId = Math.random().toString(36).replace("0.", "");
-    const newTask: TaskType = {
-      id: getId,
+    const newTask = {
+      id: GetId(),
       text: taskInput,
       completed: false,
       createdAt: d.getTime(),
@@ -112,7 +112,7 @@ export const TodoApp = () => {
     focusMe.current?.focus();
   };
 
-  const handleAddKey = (e) => {
+  const handleAddKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") addTask();
   };
 

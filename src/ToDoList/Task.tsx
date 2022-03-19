@@ -43,18 +43,10 @@ export const Task = (props: TaskProps) => {
     <DivTask completed={props.task.completed}>
       <h2>{props.task.text}</h2>
       <div>
-        <Button
-          onClick={() => {
-            props.toggleTask(props.task.id);
-          }}
-        >
+        <Button onClick={() => props.toggleTask(props.task.id)}>
           <TickIcon />
         </Button>
-        <Button
-          onClick={() => {
-            props.deleteTask(props.task.id);
-          }}
-        >
+        <Button onClick={() => props.deleteTask(props.task.id)}>
           <TrashIcon />
         </Button>
       </div>
