@@ -1,8 +1,7 @@
-import { TaskType } from "./Task";
 import { useState } from "react";
 
 export const STORAGE_NAME = "todoApp";
-
+export const getId = () => Math.random().toString(36).replace("0.", "");
 /**
  * inspiration from: https://usehooks.com/useLocalStorage/
  */
@@ -17,7 +16,10 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
 
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      [];
+      console.error(
+        "There is a problem with getting items from local storage",
+        error
+      );
       return initialValue;
     }
   });
@@ -33,7 +35,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      [];
+      console.error("There is a problem with saving to local storage", error);
     }
   };
   return [storedValue, setValue] as const;

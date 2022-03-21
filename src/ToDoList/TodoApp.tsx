@@ -7,9 +7,10 @@ import {
   Switch,
 } from "react-router-dom";
 import { STORAGE_NAME } from "./utils";
-import { Task, TaskType } from "./Task";
+import { TaskType } from "./Task";
 import { Tasks } from "./Tasks";
 import { TickIcon } from "./Icons";
+import { getId } from "./utils";
 import { themes } from "./Theme";
 import { useLocalStorage } from "./utils";
 import { useRef, useState } from "react";
@@ -67,7 +68,6 @@ const DivAddTaskBox = styled.div`
   margin-bottom: 2em;
   color: ${themes.primaryColor};
 `;
-const getId = () => Math.random().toString(36).replace("0.", "");
 
 export const TodoApp = () => {
   const [tasks, setTasks] = useLocalStorage<TaskType[]>(STORAGE_NAME, []);
