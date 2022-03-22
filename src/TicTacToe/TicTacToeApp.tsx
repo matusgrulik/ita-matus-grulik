@@ -1,9 +1,9 @@
 import { TicTacToeBoard } from "./Components/Board";
 import { checkAll } from "./Components/WinLogic";
+import { theme } from "./Theme";
 import React, { Component } from "react";
 import styled from "styled-components";
 
-//STYLES
 const DivWrapper = styled.div`
   max-width: 880px;
   margin: auto;
@@ -15,37 +15,35 @@ const Reset = styled.button`
   text-align: center;
   margin: 0 20px 20px 20px;
   padding: 10px;
-  border: 3px solid #fff;
+  border: 3px solid ${theme.primaryColor};
   border-radius: 10px;
-  font-size: 2rem;
-  font-family: sans-serif;
-  color: #fff;
-  background-color: #a01111;
+  font-size: ${theme.fontSize};
+  color: ${theme.primaryColor};
+  background-color: ${theme.secondaryColor};
   &:hover {
     cursor: pointer;
   }
 `;
 
-//CODE
-export interface SquareData {
-  value: string;
-}
+export type SquareData = {
+  value: string | null;
+};
 
 export enum OnTurn {
   X = "X",
   O = "O",
 }
 
-interface Props {
+type Props = {
   resetGame: React.MouseEventHandler<HTMLButtonElement> | undefined;
   turn: string;
   squares: SquareData[];
-  onClick: (number: any) => void;
-}
+  onClick: (number: number) => void;
+};
 
-export const BoardSize = 10;
-const Squares = BoardSize ** 2;
-export const ToWin = 5;
+export const BOARD_SIZE = 10;
+const SQUARES = BOARD_SIZE ** 2;
+export const TO_WIN = 5;
 
 const app = (Comp: any) =>
   class AppComp extends Component<
@@ -53,7 +51,7 @@ const app = (Comp: any) =>
     { turn: OnTurn; squares: SquareData[]; finish: boolean }
   > {
     createBoard = (): SquareData[] => {
-      let squares = Array(Squares).fill({ value: null });
+      let squares = Array.from({ length: SQUARES }, () => ({ value: null }));
       return squares;
     };
 
@@ -67,7 +65,7 @@ const app = (Comp: any) =>
 
     state = this.init();
 
-    nextPlayer = (): void => {
+    nextPlayer = () => {
       this.fieldIsFull();
       let someoneWon = checkAll(this.state.turn, this.state.squares);
       if (someoneWon) {
@@ -79,8 +77,8 @@ const app = (Comp: any) =>
         `);
       }
 
-      this.setState((prevState) => ({
-        turn: prevState.turn === OnTurn.X ? OnTurn.O : OnTurn.X,
+      this.setState((p) => ({
+        turn: p.turn === OnTurn.X ? OnTurn.O : OnTurn.X,
       }));
     };
 
@@ -88,34 +86,32 @@ const app = (Comp: any) =>
       return this.state.squares[id].value !== null;
     };
 
-    fieldIsFull = (): void => {
+    fieldIsFull = () => {
       let emptySquares = this.state.squares.filter(
         (sq) => sq.value !== null
       ).length;
-      if (emptySquares === Squares) {
+      if (emptySquares === SQUARES) {
         alert("Game Over");
       }
     };
 
-    onClick = (id: number): void => {
+    onClick = (id: number) => {
       if (this.hasValue(id)) return;
 
       if (this.state.finish) {
         return;
       }
       this.setState(
-        (prevState) => ({
-          squares: prevState.squares.map((square, index) =>
-            id === index ? { ...square, value: prevState.turn } : square
+        (p) => ({
+          squares: p.squares.map((square, index) =>
+            id === index ? { ...square, value: p.turn } : square
           ),
         }),
-        () => {
-          this.nextPlayer();
-        }
+        () => this.nextPlayer()
       );
     };
 
-    resetGame = (): void => {
+    resetGame = () => {
       this.setState(this.init());
     };
 
@@ -131,14 +127,11 @@ const app = (Comp: any) =>
     }
   };
 
-export const TTTApp = React.memo(
-  app((props: Props) => {
-    return (
-      <DivWrapper>
-        <style>{`body { background-color: #000;`}</style>
-        <TicTacToeBoard squares={props.squares} onClick={props.onClick} />
-        <Reset onClick={props.resetGame}>RESET GAME</Reset>
-      </DivWrapper>
-    );
-  })
-);
+export const TTTApp = app((props: Props) => {
+  return (
+    <DivWrapper>
+      <TicTacToeBoard squares={props.squares} onClick={props.onClick} />
+      <Reset onClick={props.resetGame}>RESET GAME</Reset>
+    </DivWrapper>
+  );
+});

@@ -1,14 +1,18 @@
-import { BoardSize } from "../TicTacToeApp";
+import { BOARD_SIZE } from "../TicTacToeApp";
 import { OnTurn } from "../TicTacToeApp";
 import { SquareData } from "../TicTacToeApp";
-import { ToWin } from "../TicTacToeApp";
+import { TO_WIN } from "../TicTacToeApp";
 
-const make2D = (squares: SquareData[]): any => {
+/**
+ * splitting the input array into an array of arrays of size ten
+ */
+
+const make2D = (squares: SquareData[]) => {
   let result: SquareData[][] = [];
   let tenElements: SquareData[] = [];
   squares.forEach((el, index) => {
     tenElements.push(el);
-    if ((index + 1) % BoardSize === 0) {
+    if ((index + 1) % BOARD_SIZE === 0) {
       result.push(tenElements);
       tenElements = [];
     }
@@ -16,7 +20,11 @@ const make2D = (squares: SquareData[]): any => {
   return result;
 };
 
-const Rows = (turn: OnTurn, board: SquareData[][]): boolean => {
+/**
+ * checking if there is the same value n times (in our case 5 times) next to each other in rows without interruption
+ */
+
+const rows = (turn: OnTurn, board: SquareData[][]): boolean => {
   for (let row = 0; row < board.length; row++) {
     let count = 0;
     let winArray: number[][] = [];
@@ -28,7 +36,7 @@ const Rows = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
@@ -36,7 +44,11 @@ const Rows = (turn: OnTurn, board: SquareData[][]): boolean => {
   return false;
 };
 
-const Cols = (turn: OnTurn, board: SquareData[][]): boolean => {
+/**
+ * checking if there is the same value n times (in our case 5 times) next to each other in cols without interruption
+ */
+
+const columns = (turn: OnTurn, board: SquareData[][]): boolean => {
   for (let col = 0; col < board.length; col++) {
     let count = 0;
     let winArray: number[][] = [];
@@ -48,7 +60,7 @@ const Cols = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
@@ -56,11 +68,15 @@ const Cols = (turn: OnTurn, board: SquareData[][]): boolean => {
   return false;
 };
 
-const Diag1 = (turn: OnTurn, board: SquareData[][]): boolean => {
+/**
+ * checking if there is the same value n times (in our case 5 times) next to each other in the main diagonal (from left to right) without interruption
+ */
+
+const diagonal1 = (turn: OnTurn, board: SquareData[][]): boolean => {
   let count = 0;
   let length = board.length;
   let winArray: number[][] = [];
-  let maxLength = length - ToWin + 1;
+  let maxLength = length - TO_WIN + 1;
   for (let rowStart = 0; rowStart < maxLength; rowStart++) {
     for (
       let row = rowStart, col = 0;
@@ -74,7 +90,7 @@ const Diag1 = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
@@ -93,7 +109,7 @@ const Diag1 = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
@@ -101,10 +117,14 @@ const Diag1 = (turn: OnTurn, board: SquareData[][]): boolean => {
   return false;
 };
 
-const Diag2 = (turn: OnTurn, board: SquareData[][]): boolean => {
+/**
+ * checking if there is the same value n times (in our case 5 times) next to each other in the secondary diagonal (from right to left) without interruption
+ */
+
+const diagonal2 = (turn: OnTurn, board: SquareData[][]): boolean => {
   let count = 0;
   let length = board.length;
-  let maxLength = length - ToWin + 1;
+  let maxLength = length - TO_WIN + 1;
   let winArray: number[][] = [];
 
   for (let rowStart = 0; rowStart < maxLength; rowStart++) {
@@ -120,12 +140,12 @@ const Diag2 = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
   }
-  for (let colStart = length - 2; colStart > ToWin - 2; colStart--) {
+  for (let colStart = length - 2; colStart > TO_WIN - 2; colStart--) {
     for (
       let col = colStart, row = 0;
       col >= 0 && row <= length - 2;
@@ -138,7 +158,7 @@ const Diag2 = (turn: OnTurn, board: SquareData[][]): boolean => {
         count = 0;
         winArray = [];
       }
-      if (count === ToWin) {
+      if (count === TO_WIN) {
         return true;
       }
     }
@@ -149,9 +169,9 @@ const Diag2 = (turn: OnTurn, board: SquareData[][]): boolean => {
 export const checkAll = (turn: OnTurn, squares: SquareData[]): boolean => {
   let board = make2D(squares);
   return (
-    Rows(turn, board) ||
-    Cols(turn, board) ||
-    Diag1(turn, board) ||
-    Diag2(turn, board)
+    rows(turn, board) ||
+    columns(turn, board) ||
+    diagonal1(turn, board) ||
+    diagonal2(turn, board)
   );
 };

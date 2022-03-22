@@ -3,7 +3,6 @@ import { SquareData } from "../TicTacToeApp";
 import React from "react";
 import styled from "styled-components";
 
-//STYLES
 const DivMainWrapper = styled.div`
   flex-basis: 100%;
   margin-top: -25px;
@@ -16,11 +15,10 @@ const DivWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-//CODE
-interface BoardProps {
+type BoardProps = {
   squares: SquareData[];
-  onClick: (number) => void;
-}
+  onClick: (number: number) => void;
+};
 
 export class TicTacToeBoard extends React.PureComponent<BoardProps, {}> {
   constructor(props: BoardProps) {

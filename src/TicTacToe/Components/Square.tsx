@@ -1,24 +1,22 @@
 import { SquareData } from "../TicTacToeApp";
+import { theme } from "../Theme";
 import React from "react";
 import styled from "styled-components";
 
-//STYLES
 const DivWrapper = styled.div`
-  border: 2px solid #fff;
-  background-color: #000;
-  color: #fff;
+  border: 2px solid ${theme.primaryColor};
+  color: ${theme.primaryColor};
   width: 50px;
   height: 50px;
-  text-align: center;
-  font-size: 2rem;
+  text-align: ${theme.textAlign};
+  font-size: ${theme.fontSize};
 `;
 
-//CODE
-interface SquareProps {
+type SquareProps = {
   squareData: SquareData;
   id: number;
-  onClick: (number) => void;
-}
+  onClick: (number: number) => void;
+};
 
 export class Square extends React.Component<SquareProps, {}> {
   onClick = (event: React.FormEvent<HTMLDivElement>) => {
