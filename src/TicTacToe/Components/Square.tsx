@@ -1,6 +1,5 @@
 import { SquareData } from "../TicTacToeApp";
 import { theme } from "../Theme";
-import React from "react";
 import styled from "styled-components";
 
 const DivWrapper = styled.div`
@@ -18,15 +17,8 @@ type SquareProps = {
   onClick: (number: number) => void;
 };
 
-export class Square extends React.Component<SquareProps, {}> {
-  onClick = (event: React.FormEvent<HTMLDivElement>) => {
-    this.props.onClick(this.props.id);
-  };
-  render() {
-    return (
-      <DivWrapper onClick={(event) => this.onClick(event)}>
-        {this.props.squareData.value}
-      </DivWrapper>
-    );
-  }
-}
+export const Square = (props: SquareProps) => (
+  <DivWrapper onClick={() => props.onClick(props.id)}>
+    {props.squareData.value}
+  </DivWrapper>
+);

@@ -1,6 +1,5 @@
 import { Square } from "./Square";
 import { SquareData } from "../TicTacToeApp";
-import React from "react";
 import styled from "styled-components";
 
 const DivMainWrapper = styled.div`
@@ -20,24 +19,17 @@ type BoardProps = {
   onClick: (number: number) => void;
 };
 
-export class TicTacToeBoard extends React.PureComponent<BoardProps, {}> {
-  constructor(props: BoardProps) {
-    super(props);
-  }
-  render() {
-    return (
-      <DivMainWrapper>
-        <DivWrapper>
-          {this.props.squares.map((square, index) => (
-            <Square
-              key={index}
-              id={index}
-              squareData={square}
-              onClick={this.props.onClick}
-            />
-          ))}
-        </DivWrapper>
-      </DivMainWrapper>
-    );
-  }
-}
+export const TicTacToeBoard = (props: BoardProps) => (
+  <DivMainWrapper>
+    <DivWrapper>
+      {props.squares.map((square, index) => (
+        <Square
+          key={index}
+          id={index}
+          squareData={square}
+          onClick={props.onClick}
+        />
+      ))}
+    </DivWrapper>
+  </DivMainWrapper>
+);

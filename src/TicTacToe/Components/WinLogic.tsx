@@ -1,7 +1,8 @@
 import { BOARD_SIZE } from "../TicTacToeApp";
-import { OnTurn } from "../TicTacToeApp";
 import { SquareData } from "../TicTacToeApp";
 import { TO_WIN } from "../TicTacToeApp";
+import { ValueOf } from "../TicTacToeApp";
+import { onTurn } from "../TicTacToeApp";
 
 /**
  * splitting the input array into an array of arrays of size ten
@@ -24,7 +25,7 @@ const make2D = (squares: SquareData[]) => {
  * checking if there is the same value n times (in our case 5 times) next to each other in rows without interruption
  */
 
-const rows = (turn: OnTurn, board: SquareData[][]): boolean => {
+const rows = (turn: ValueOf<typeof onTurn>, board: SquareData[][]): boolean => {
   for (let row = 0; row < board.length; row++) {
     let count = 0;
     let winArray: number[][] = [];
@@ -48,7 +49,10 @@ const rows = (turn: OnTurn, board: SquareData[][]): boolean => {
  * checking if there is the same value n times (in our case 5 times) next to each other in cols without interruption
  */
 
-const columns = (turn: OnTurn, board: SquareData[][]): boolean => {
+const columns = (
+  turn: ValueOf<typeof onTurn>,
+  board: SquareData[][]
+): boolean => {
   for (let col = 0; col < board.length; col++) {
     let count = 0;
     let winArray: number[][] = [];
@@ -72,7 +76,10 @@ const columns = (turn: OnTurn, board: SquareData[][]): boolean => {
  * checking if there is the same value n times (in our case 5 times) next to each other in the main diagonal (from left to right) without interruption
  */
 
-const diagonal1 = (turn: OnTurn, board: SquareData[][]): boolean => {
+const diagonal1 = (
+  turn: ValueOf<typeof onTurn>,
+  board: SquareData[][]
+): boolean => {
   let count = 0;
   let length = board.length;
   let winArray: number[][] = [];
@@ -121,7 +128,10 @@ const diagonal1 = (turn: OnTurn, board: SquareData[][]): boolean => {
  * checking if there is the same value n times (in our case 5 times) next to each other in the secondary diagonal (from right to left) without interruption
  */
 
-const diagonal2 = (turn: OnTurn, board: SquareData[][]): boolean => {
+const diagonal2 = (
+  turn: ValueOf<typeof onTurn>,
+  board: SquareData[][]
+): boolean => {
   let count = 0;
   let length = board.length;
   let maxLength = length - TO_WIN + 1;
@@ -166,7 +176,10 @@ const diagonal2 = (turn: OnTurn, board: SquareData[][]): boolean => {
   return false;
 };
 
-export const checkAll = (turn: OnTurn, squares: SquareData[]): boolean => {
+export const checkAll = (
+  turn: ValueOf<typeof onTurn>,
+  squares: SquareData[]
+): boolean => {
   let board = make2D(squares);
   return (
     rows(turn, board) ||

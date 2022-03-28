@@ -1,6 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { TTTApp } from "./TicTacToe/TicTacToeApp";
+import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
 import { TodoApp } from "./ToDoList/TodoApp";
 
 export default function App() {
@@ -42,7 +42,7 @@ export default function App() {
           </Route>
 
           <Route path="/tictactoe">
-            <TTTApp />
+            <TicTacToeApp />
           </Route>
 
           <Route path="/">
