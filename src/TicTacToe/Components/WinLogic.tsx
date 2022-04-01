@@ -5,13 +5,17 @@ import { ValueOf } from "../TicTacToeApp";
 import { onTurn } from "../TicTacToeApp";
 
 /**
+ * inspiration: https://codepen.io/Howie_Burger/pen/MezBKa?editors=0010
+ */
+
+/**
  * splitting the input array into an array of arrays of size ten
  */
 
 const make2D = (squares: SquareData[]) => {
   let result: SquareData[][] = [];
   let tenElements: SquareData[] = [];
-  squares.forEach((el, index) => {
+  squares.map((el, index) => {
     tenElements.push(el);
     if ((index + 1) % BOARD_SIZE === 0) {
       result.push(tenElements);
@@ -25,65 +29,54 @@ const make2D = (squares: SquareData[]) => {
  * checking if there is the same value n times (in our case 5 times) next to each other in rows without interruption
  */
 
-const rows = (turn: ValueOf<typeof onTurn>, board: SquareData[][]): boolean => {
-  for (let row = 0; row < board.length; row++) {
+const rows = (turn: ValueOf<typeof onTurn>, board: SquareData[][]) => {
+  const rowWinner = board.map((row, rowIndex) => {
     let count = 0;
-    let winArray: number[][] = [];
-    for (let col = 0; col < board.length; col++) {
-      if (board[row][col].value === turn) {
+    return row.map((column, columnIndex) => {
+      if (board[rowIndex][columnIndex].value === turn) {
         count++;
-        winArray.push(Array(row, col));
       } else {
         count = 0;
-        winArray = [];
       }
-      if (count === TO_WIN) {
-        return true;
-      }
-    }
-  }
-  return false;
+      if (count === TO_WIN) return true;
+      return false;
+    });
+  });
+  return rowWinner.some((row) => row.includes(true));
 };
 
 /**
  * checking if there is the same value n times (in our case 5 times) next to each other in cols without interruption
  */
 
-const columns = (
-  turn: ValueOf<typeof onTurn>,
-  board: SquareData[][]
-): boolean => {
-  for (let col = 0; col < board.length; col++) {
+const columns = (turn: ValueOf<typeof onTurn>, board: SquareData[][]) => {
+  const columnWinner = board.map((column, columnIndex) => {
     let count = 0;
-    let winArray: number[][] = [];
-    for (let row = 0; row < board.length; row++) {
-      if (board[row][col].value === turn) {
+    return column.map((row, rowIndex) => {
+      if (board[rowIndex][columnIndex].value === turn) {
         count++;
-        winArray.push(Array(row, col));
       } else {
         count = 0;
-        winArray = [];
       }
-      if (count === TO_WIN) {
-        return true;
-      }
-    }
-  }
-  return false;
+      if (count === TO_WIN) return true;
+      return false;
+    });
+  });
+  return columnWinner.some((column) => column.includes(true));
 };
 
 /**
  * checking if there is the same value n times (in our case 5 times) next to each other in the main diagonal (from left to right) without interruption
  */
 
-const diagonal1 = (
-  turn: ValueOf<typeof onTurn>,
-  board: SquareData[][]
-): boolean => {
+const diagonal1 = (turn: ValueOf<typeof onTurn>, board: SquareData[][]) => {
   let count = 0;
   let length = board.length;
   let winArray: number[][] = [];
   let maxLength = length - TO_WIN + 1;
+  /**
+   * Run Bottom Half diagonal Top Left to Bottom Right (incl middle)
+   */
   for (let rowStart = 0; rowStart < maxLength; rowStart++) {
     for (
       let row = rowStart, col = 0;
@@ -102,7 +95,9 @@ const diagonal1 = (
       }
     }
   }
-
+  /**
+   *  Run Top Half diagonal Top Left to Bottom Right (excl middle)
+   */
   for (let colStart = 1; colStart < maxLength; colStart++) {
     for (
       let col = colStart, row = 0;
@@ -128,15 +123,14 @@ const diagonal1 = (
  * checking if there is the same value n times (in our case 5 times) next to each other in the secondary diagonal (from right to left) without interruption
  */
 
-const diagonal2 = (
-  turn: ValueOf<typeof onTurn>,
-  board: SquareData[][]
-): boolean => {
+const diagonal2 = (turn: ValueOf<typeof onTurn>, board: SquareData[][]) => {
   let count = 0;
   let length = board.length;
   let maxLength = length - TO_WIN + 1;
   let winArray: number[][] = [];
-
+  /**
+   * Run Bottom half diagonal Top Right to Bottom Left (incl middle)
+   */
   for (let rowStart = 0; rowStart < maxLength; rowStart++) {
     for (
       let row = rowStart, col = length - 1;
@@ -155,6 +149,9 @@ const diagonal2 = (
       }
     }
   }
+  /**
+   * Run Top half diagonal Top Right to Bottom Left (excl middle)
+   */
   for (let colStart = length - 2; colStart > TO_WIN - 2; colStart--) {
     for (
       let col = colStart, row = 0;
@@ -179,7 +176,7 @@ const diagonal2 = (
 export const checkAll = (
   turn: ValueOf<typeof onTurn>,
   squares: SquareData[]
-): boolean => {
+) => {
   let board = make2D(squares);
   return (
     rows(turn, board) ||
