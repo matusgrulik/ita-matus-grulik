@@ -1,5 +1,6 @@
 import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
 import { TodoApp } from "./ToDoList/TodoApp";
 
 export default function App() {
@@ -41,7 +42,7 @@ export default function App() {
           </Route>
 
           <Route path="/tictactoe">
-            <div>tictactoe</div>
+            <TicTacToeApp />
           </Route>
 
           <Route path="/">
