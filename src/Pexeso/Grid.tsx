@@ -2,7 +2,6 @@ import { Card } from "./Card";
 import { CardData } from "./PexesoApp";
 import styled from "styled-components";
 
-//STYLE//
 const DivCardGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -12,19 +11,15 @@ const DivCardGrid = styled.div`
   max-width: 650px;
 `;
 
-//CODE//
-
-interface CardGridProps {
+type CardGridProps = {
   cards: CardData[];
   selectCard: (id: number) => void;
-}
-
-export const CardGrid = (props: CardGridProps) => {
-  return (
-    <DivCardGrid>
-      {props.cards.map((card, index) => (
-        <Card key={index} card={card} selectCard={props.selectCard} />
-      ))}
-    </DivCardGrid>
-  );
 };
+
+export const CardGrid = (props: CardGridProps) => (
+  <DivCardGrid>
+    {props.cards.map((card, index) => (
+      <Card key={index} card={card} selectCard={props.selectCard} />
+    ))}
+  </DivCardGrid>
+);

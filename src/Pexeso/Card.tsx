@@ -2,8 +2,6 @@ import { CardData } from "./PexesoApp";
 import { themes } from "./Theme";
 import styled from "styled-components";
 
-//STYLE//
-
 const CardDiv = styled.div`
   flex-basis: calc(25% - 20px);
   height: 1.5em;
@@ -17,23 +15,17 @@ const CardDiv = styled.div`
   font-size: 4.5em;
 `;
 
-//CODE//
-
-interface CardProps {
+type CardProps = {
   card: CardData;
   selectCard: (id: number) => void;
-}
-
-export const Card = (props: CardProps) => {
-  return (
-    <CardDiv
-      onClick={() => {
-        props.selectCard(props.card.id);
-      }}
-    >
-      {props.card.revealed || props.card.matched
-        ? props.card.symbol.emoji
-        : "❔"}
-    </CardDiv>
-  );
 };
+
+export const Card = (props: CardProps) => (
+  <CardDiv
+    onClick={() => {
+      props.selectCard(props.card.id);
+    }}
+  >
+    {props.card.revealed || props.card.matched ? props.card.symbol.emoji : "❔"}
+  </CardDiv>
+);

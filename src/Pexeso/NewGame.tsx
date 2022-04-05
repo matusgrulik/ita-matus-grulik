@@ -1,7 +1,6 @@
 import { themes } from "./Theme";
 import styled from "styled-components";
 
-//STYLE//
 const DivWrapper = styled.div`
   flex-basis: 100%;
   display: flex;
@@ -33,18 +32,14 @@ const H4 = styled.h4`
   flex-basis: 100%;
 `;
 
-//CODE//
-
-interface NewGameProps {
+type NewGameProps = {
   NewGame: () => void;
   moves: number;
-}
-
-export const Newgame = (props: NewGameProps) => {
-  return (
-    <DivWrapper>
-      <Button onClick={props.NewGame}>New game</Button>
-      <H4>Moves: {props.moves} </H4>
-    </DivWrapper>
-  );
 };
+
+export const Newgame = (props: NewGameProps) => (
+  <DivWrapper>
+    <Button onClick={props.NewGame}>New game</Button>
+    <H4>Moves: {props.moves} </H4>
+  </DivWrapper>
+);

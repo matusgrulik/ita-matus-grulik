@@ -1,65 +1,64 @@
-import "./App.css";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PexesoApp } from "./Pexeso/PexesoApp";
+import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
+import { TodoApp } from "./ToDoList/TodoApp";
+import styled from "styled-components";
 
+const DivWrapper = styled.div`
+  display: flex;
+  font-size: 3em;
+  margin: 2em;
+  justify-content: center;
+`;
+const LinkNav = styled(Link)`
+  margin: 1em;
+  text-decoration: none;
+  color: #000000;
+  text-transform: uppercase;
+`;
 export default function App() {
   return (
     <Router>
       <div>
         <nav>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              margin: "2em",
-              fontSize: "3em",
-            }}
-          >
+          <DivWrapper>
             <div>
-              <Link to="/hacker-typer" style={{ color: "green" }}>
-                Hacker Typer
-              </Link>
+              <LinkNav to="/">Home Page</LinkNav>
             </div>
             <div>
-              <Link to="/todolist" style={{ color: "green" }}>
-                To Do List
-              </Link>
+              <LinkNav to="/hacker-typer">Hacker Typer</LinkNav>
             </div>
             <div>
-              <Link to="/tictactoe" style={{ color: "green" }}>
-                Tic Tac Toe
-              </Link>
+              <LinkNav to="/todolist">To Do List</LinkNav>
             </div>
             <div>
-              <Link to="/blogpost" style={{ color: "green" }}>
-                Blog
-              </Link>
+              <LinkNav to="/tictactoe">Tic Tac Toe</LinkNav>
             </div>
             <div>
-              <Link to="/pexeso" style={{ color: "green" }}>
-                Pexeso
-              </Link>
+              <LinkNav to="/pexeso">Pexeso</LinkNav>
             </div>
-          </div>
+          </DivWrapper>
         </nav>
 
         <Switch>
           <Route path="/hacker-typer">{/*<HackerTyper />*/}</Route>
 
-          <Route path="/todolist">{/*<ToDoList />*/}</Route>
+          <Route path="/todolist">
+            <TodoApp />
+          </Route>
 
           <Route path="/tictactoe">
-            <div>tictactoe</div>
+            <TicTacToeApp />
           </Route>
-          <Route path="/blogpost">
-            <div>Blog</div>
+
+          <Route path="/pexeso">
+            <PexesoApp />
           </Route>
-          <Route path="/pexeso">{<PexesoApp />}</Route>
 
           <Route path="/">
-            <div>
+            <DivWrapper>
               <h1>HOMEWORKS</h1>
-            </div>
+            </DivWrapper>
           </Route>
         </Switch>
       </div>

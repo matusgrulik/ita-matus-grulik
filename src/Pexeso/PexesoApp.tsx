@@ -1,11 +1,9 @@
 import { CardGrid } from "./Grid";
-import { Helmet } from "react-helmet";
 import { Newgame } from "./NewGame";
 import { themes } from "./Theme";
 import { useState } from "react";
 import styled from "styled-components";
 
-//STYLE//
 const DivWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -21,19 +19,16 @@ const H1 = styled.h1`
   font-family: ${themes.primaryFont};
   margin: 0 auto 0.2em auto;
 `;
-
-//CODE//
-
-export interface CardData {
+export type CardData = {
   symbol: CardSymbol;
   revealed: boolean;
   id: number;
   matched: boolean;
-}
+};
 
-export interface CardSymbol {
+export type CardSymbol = {
   emoji: string;
-}
+};
 
 const symbols = [
   { emoji: "🍋" },
@@ -46,22 +41,18 @@ const symbols = [
   { emoji: "🍒" },
 ];
 
-const shuffleArray = (a: any, b: any): number => 0.5 - Math.random();
+const shuffleArray = () => 0.5 - Math.random();
 
-const prepareCards = (): CardData[] => {
-  return symbols
+const prepareCards = (): CardData[] =>
+  symbols
     .concat(symbols)
     .sort(shuffleArray)
-    .map((symbol, index) => {
-      return {
-        symbol: symbol,
-        revealed: false,
-        id: index,
-        matched: false,
-      };
-    });
-};
-
+    .map((symbol, index) => ({
+      symbol: symbol,
+      revealed: false,
+      id: index,
+      matched: false,
+    }));
 export const PexesoApp = () => {
   const [cards, setCards] = useState(prepareCards());
   const [numberOfSelectedCards, setNumberOfSelectedCards] = useState<number>(0);
@@ -81,8 +72,8 @@ export const PexesoApp = () => {
   const selectCard = (id: number) => {
     if (numberOfSelectedCards >= 2) return;
 
-    setCards((prevState) => {
-      const copy = prevState.map((card) =>
+    setCards((p) => {
+      const copy = p.map((card) =>
         card.id === id ? { ...card, revealed: true } : card
       );
 
@@ -93,19 +84,19 @@ export const PexesoApp = () => {
           matchCard(revealed[1].symbol);
         }
 
-        setMoves((prevState) => prevState + 1);
+        setMoves((p) => p + 1);
         setTimeout(() => unselectAll(), 500);
       }
 
       return copy;
     });
 
-    setNumberOfSelectedCards((prevState) => prevState + 1);
+    setNumberOfSelectedCards((p) => p + 1);
   };
 
   const matchCard = (symbol: CardSymbol) => {
-    setCards((prevState) => {
-      const copy = prevState.map((card) =>
+    setCards((p) => {
+      const copy = p.map((card) =>
         card.symbol === symbol ? { ...card, matched: true } : card
       );
 
@@ -119,18 +110,12 @@ export const PexesoApp = () => {
   };
 
   const unselectAll = () => {
-    setCards((prevState) => {
-      return prevState.map((card) => ({ ...card, revealed: false }));
-    });
+    setCards((p) => p.map((card) => ({ ...card, revealed: false })));
 
     setNumberOfSelectedCards(0);
   };
-
   return (
     <DivWrapper>
-      <Helmet>
-        <style>{`body { background-color: ${themes.quaternaryColor}}`}</style>
-      </Helmet>
       <H1>Pexeso</H1>
       <Newgame NewGame={NewGame} moves={moves} />
       <CardGrid cards={cards} selectCard={selectCard} />
