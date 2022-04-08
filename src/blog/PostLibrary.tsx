@@ -5,8 +5,6 @@ import { themes } from "./Theme";
 import { useContext } from "react";
 import styled from "styled-components";
 
-//STYLE//
-
 const DivWrapper = styled.div`
   margin: 1em;
   line-height: 1.5;
@@ -21,11 +19,8 @@ const DivWrapper = styled.div`
   }
 `;
 
-//CODE//
-
 export const PostLibrary = () => {
   const { posts } = useContext(PostsContext);
-
   return (
     <DivWrapper>
       {posts.map((post, index) => {

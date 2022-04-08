@@ -4,8 +4,6 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import urlSlug from "url-slug";
 
-//STYLE//
-
 const ErrorDiv = styled.div`
   text-align: ${themes.textAlign};
   font-size: 1.5em;
@@ -29,12 +27,11 @@ const Button = styled.button`
   top: 1.5em;
   left: 8em;
   border-radius: 5px;
-  background: ${themes.primaryColor};
-  color: ${themes.secondaryColor};
+  color: ${themes.primaryColor};
   text-transform: ${themes.textTransform};
 
   &:hover {
-    border: 2px solid ${themes.secondaryColor};
+    border: 2px solid ${themes.primaryColor};
     font-weight: bold;
     cursor: pointer;
   }
@@ -57,8 +54,6 @@ const InputDiv = styled.div`
   width: 50%;
   margin: 1.5em 0 2em 0;
 `;
-
-//CODE//
 
 export const NewPost = () => {
   const { addPost } = useContext(PostsContext);

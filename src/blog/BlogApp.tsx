@@ -1,10 +1,8 @@
-import { Helmet } from "react-helmet";
 import { Navigation } from "./Navigation";
 import { themes } from "./Theme";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-//STYLE//
 const DivWrapper = styled.div`
   max-width: 880px;
   margin: auto;
@@ -19,17 +17,15 @@ const H1 = styled.h1`
   font-family: ${themes.primaryFont};
 `;
 
-//CODE//
-
-export interface PostState {
+export type PostState = {
   authorName: string;
   postTitle: string;
   postText: string;
   id: number;
   slug: string;
-}
+};
 
-export interface PostsContextState {
+export type PostsContextState = {
   posts: PostState[];
   addPost: (
     postTitle: string,
@@ -37,7 +33,7 @@ export interface PostsContextState {
     postText: string,
     slug: string
   ) => void;
-}
+};
 
 export const PostsContext = React.createContext<PostsContextState>({
   posts: [],
@@ -86,15 +82,12 @@ export const BlogApp = () => {
       id: posts.length,
       slug: newSlug,
     };
-    setPosts((prevState) => [newPost, ...prevState]);
+    setPosts((p) => [newPost, ...p]);
   };
 
   return (
     <PostsContext.Provider value={{ posts, addPost }}>
       <DivWrapper>
-        <Helmet>
-          <style>{`body { background-color: ${themes.quaternaryColor}}`}</style>
-        </Helmet>
         <H1>Blog post</H1>
         <Navigation />
       </DivWrapper>

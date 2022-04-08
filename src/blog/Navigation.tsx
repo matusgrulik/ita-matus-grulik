@@ -7,7 +7,6 @@ import { themes } from "./Theme";
 import { useContext } from "react";
 import styled from "styled-components";
 
-//STYLE//
 const Nav = styled.nav`
   margin-top: 5em;
   font-family: ${themes.secondaryFont};
@@ -21,12 +20,10 @@ const LinkNav = styled(Link)`
   width: 100%;
   text-align: ${themes.textAlign};
   margin: 1em;
-  border: 2px solid ${themes.secondaryColor};
+  border: 2px solid ${themes.primaryColor};
   border-radius: 5px;
 
   &:hover {
-    color: ${themes.secondaryColor};
-    background: ${themes.primaryColor};
     font-weight: bold;
   }
 `;
@@ -36,8 +33,6 @@ const DivLink = styled.div`
   justify-content: space-evenly;
   margin: auto;
 `;
-
-//CODE//
 
 export const URL_BASE = "/Blogpost/";
 
