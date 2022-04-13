@@ -1,4 +1,5 @@
 import { PostsContext } from "./BlogApp";
+import { convertToSlug } from "../Utils/stringToSlug";
 import { themes } from "./Theme";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
@@ -6,11 +7,11 @@ import urlSlug from "url-slug";
 
 const ErrorDiv = styled.div`
   text-align: ${themes.textAlign};
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   color: ${themes.tertiaryColor};
-  padding: 1em 0;
-  margin: 0 30%;
+  padding: 0;
+  margin: 0.5em;
 `;
 
 const Label = styled.label`
@@ -61,22 +62,24 @@ export const NewPost = () => {
   const [authorName, setAuthorName] = useState("");
   const [postText, setPostText] = useState("");
   const [slug, setSlug] = useState("");
-  const [error, setError] = useState("");
+  const [titleError, setTitleError] = useState<string | null>(null);
+  const [authorError, setAuthorError] = useState<string | null>(null);
+  const [textError, setTextError] = useState<string | null>(null);
 
   function onSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
 
-    setError("");
-    if (postTitle.replace(" ", "") === "") {
-      setError("Title is required");
-      return;
-    }
-    if (authorName.replace(" ", "") === "") {
-      setError("Author is required");
-      return;
-    }
-    if (postText.replace(" ", "") === "") {
-      setError("Text is required");
+    setAuthorError(null);
+    setTitleError(null);
+    setTextError(null);
+    if (
+      postTitle.trim() === "" ||
+      authorName.trim() === "" ||
+      postText.trim() === ""
+    ) {
+      setAuthorError("Author is required");
+      setTitleError("Title is required");
+      setTextError("Text is required");
       return;
     }
 
@@ -89,9 +92,9 @@ export const NewPost = () => {
 
   return (
     <div>
-      <ErrorDiv>{error}</ErrorDiv>
       <Form>
         <InputDiv>
+          <ErrorDiv>{titleError}</ErrorDiv>
           <Label>Post Title</Label>
           <Input
             type="text"
@@ -100,11 +103,12 @@ export const NewPost = () => {
             value={postTitle}
             onChange={(e) => {
               setPostTitle(e.target.value);
-              setSlug(urlSlug(e.target.value));
+              setSlug(convertToSlug(e.target.value));
             }}
           />
         </InputDiv>
         <InputDiv>
+          <ErrorDiv>{authorError}</ErrorDiv>
           <Label>Author Name</Label>
           <Input
             type="text"
@@ -115,6 +119,7 @@ export const NewPost = () => {
           />
         </InputDiv>
         <InputDiv>
+          <ErrorDiv>{textError}</ErrorDiv>
           <Label>Text Area</Label>
           <textarea
             required

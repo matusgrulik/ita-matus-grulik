@@ -1,6 +1,7 @@
 import { Navigation } from "./Navigation";
 import { themes } from "./Theme";
-import React, { useState } from "react";
+import { useLocalStorage } from "../Utils/UseLocalStorage";
+import React from "react";
 import styled from "styled-components";
 
 const DivWrapper = styled.div`
@@ -39,35 +40,10 @@ export const PostsContext = React.createContext<PostsContextState>({
   posts: [],
   addPost: () => {},
 });
-
-/**
- * Help: https://usehooks.com/useLocalStorage/
- **/
-
-const useLocalStorage = (defaultValue: PostState[]) => {
-  const [posts, setPostsLocally] = useState(() => {
-    try {
-      const data = localStorage.getItem("blogPosts");
-      return data ? JSON.parse(data) : defaultValue;
-    } catch {
-      return defaultValue;
-    }
-  });
-
-  const setPosts = (value: PostState[] | ((v: PostState[]) => PostState[])) => {
-    try {
-      const valueToLocalStorage =
-        value instanceof Function ? value(posts) : value;
-      setPostsLocally(valueToLocalStorage);
-      localStorage.setItem("blogPosts", JSON.stringify(valueToLocalStorage));
-    } catch {}
-  };
-
-  return [posts, setPosts] as const;
-};
+const STORAGE_NAME = "blogPostApp";
 
 export const BlogApp = () => {
-  const [posts, setPosts] = useLocalStorage([] as PostState[]);
+  const [posts, setPosts] = useLocalStorage<PostState[]>(STORAGE_NAME, []);
 
   const addPost = (
     newPostTitle: string,

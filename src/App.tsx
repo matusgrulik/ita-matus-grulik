@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const DivWrapper = styled.div`
   display: flex;
-  font-size: 3em;
+  font-size: 2em;
   margin: 2em;
   justify-content: center;
 `;
