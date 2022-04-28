@@ -1,7 +1,6 @@
+import { BlogContextProvider } from "./BlogContext";
 import { Navigation } from "./Navigation";
 import { themes } from "./Theme";
-import { useLocalStorage } from "./utils";
-import React from "react";
 import styled from "styled-components";
 
 const DivWrapper = styled.div`
@@ -18,55 +17,13 @@ const H1 = styled.h1`
   font-family: ${themes.primaryFont};
 `;
 
-export type PostState = {
-  authorName: string;
-  postTitle: string;
-  postText: string;
-  id: number;
-  slug: string;
-};
-
-export type PostsContextState = {
-  posts: PostState[];
-  addPost: (
-    postTitle: string,
-    authorName: string,
-    postText: string,
-    slug: string
-  ) => void;
-};
-
-export const PostsContext = React.createContext<PostsContextState>({
-  posts: [],
-  addPost: () => {},
-});
-const STORAGE_NAME = "blogPostApp";
-
 export const BlogApp = () => {
-  const [posts, setPosts] = useLocalStorage<PostState[]>(STORAGE_NAME, []);
-
-  const addPost = (
-    newPostTitle: string,
-    newAuthorName: string,
-    newPostText: string,
-    newSlug: string
-  ) => {
-    const newPost: PostState = {
-      postTitle: newPostTitle,
-      authorName: newAuthorName,
-      postText: newPostText,
-      id: posts.length,
-      slug: newSlug,
-    };
-    setPosts((p) => [newPost, ...p]);
-  };
-
   return (
-    <PostsContext.Provider value={{ posts, addPost }}>
+    <BlogContextProvider>
       <DivWrapper>
         <H1>Blog post</H1>
         <Navigation />
       </DivWrapper>
-    </PostsContext.Provider>
+    </BlogContextProvider>
   );
 };

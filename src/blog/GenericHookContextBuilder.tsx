@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -18,28 +18,3 @@ export const genericHookContextBuilder = <T, P>(hook: () => T) => {
     },
   };
 };
-
-const useLogicState = () => {
-  const [logicState, setLogicState] = useState(null as null | string);
-
-  return {
-    logicState,
-    setLogicState,
-  };
-};
-
-export const {
-  ContextProvider: LogicStateContextProvider,
-  Context: LogicStateContext,
-} = genericHookContextBuilder(useLogicState);
-
-const Child = () => {
-  const logic = useContext(LogicStateContext);
-  return <div />;
-};
-
-const App = () => (
-  <LogicStateContextProvider>
-    <Child />
-  </LogicStateContextProvider>
-);

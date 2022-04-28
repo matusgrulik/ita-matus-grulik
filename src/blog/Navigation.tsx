@@ -1,8 +1,8 @@
+import { BlogContext } from "./BlogContext";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { NewPost } from "./NewPost";
 import { OnePost } from "./OnePost";
 import { PostLibrary } from "./PostLibrary";
-import { PostsContext } from "./BlogApp";
 import { URL_BASE, urls } from "./utils";
 import { themes } from "./Theme";
 import { useContext } from "react";
@@ -36,7 +36,7 @@ const DivLink = styled.div`
 `;
 
 export const Navigation = () => {
-  const { posts } = useContext(PostsContext);
+  const { posts } = useContext(BlogContext);
   return (
     <Router>
       <div>

@@ -1,4 +1,4 @@
-import { PostState } from "./BlogApp";
+import { PostState } from "./BlogContext";
 import { themes } from "./Theme";
 import Markdown from "markdown-to-jsx";
 import styled from "styled-components";

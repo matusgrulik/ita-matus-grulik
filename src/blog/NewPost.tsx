@@ -1,9 +1,8 @@
-import { PostsContext } from "./BlogApp";
+import { BlogContext } from "./BlogContext";
 import { convertToSlug } from "./utils";
 import { themes } from "./Theme";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import urlSlug from "url-slug";
 
 const ErrorDiv = styled.div`
   text-align: ${themes.textAlign};
@@ -57,7 +56,7 @@ const InputDiv = styled.div`
 `;
 
 export const NewPost = () => {
-  const { addPost } = useContext(PostsContext);
+  const { addPost } = useContext(BlogContext);
   const [postTitle, setPostTitle] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [postText, setPostText] = useState("");

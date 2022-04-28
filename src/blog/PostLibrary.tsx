@@ -1,5 +1,5 @@
+import { BlogContext } from "./BlogContext";
 import { Link } from "react-router-dom";
-import { PostsContext } from "./BlogApp";
 import { themes } from "./Theme";
 import { urls } from "./utils";
 import { useContext } from "react";
@@ -18,7 +18,7 @@ const DivWrapper = styled.div`
   }
 `;
 export const PostLibrary = () => {
-  const { posts } = useContext(PostsContext);
+  const { posts } = useContext(BlogContext);
   return (
     <DivWrapper>
       {posts.map((post, index) => {
