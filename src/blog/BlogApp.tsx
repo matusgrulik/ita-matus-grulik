@@ -1,6 +1,6 @@
 import { Navigation } from "./Navigation";
 import { themes } from "./Theme";
-import { useLocalStorage } from "../Utils/UseLocalStorage";
+import { useLocalStorage } from "./utils";
 import React from "react";
 import styled from "styled-components";
 

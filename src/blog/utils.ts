@@ -1,22 +1,31 @@
 import { useState } from "react";
+export const URL_BASE = "/Blogpost/";
+export const urls = {
+  URL_BASE: "/Blogpost/",
+  URL_NEWPOST: URL_BASE + "NewPost",
+  URL_ARTICLE: "Article/",
+};
+/**
+ * help: https://stackoverflow.com/questions/1053902/how-to-convert-a-title-to-a-url-slug-in-jquery
+ */
+
+export const convertToSlug = (Text: string) => {
+  return Text.toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
+};
+
 /**
  * inspiration from: https://usehooks.com/useLocalStorage/
  */
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    if (typeof window === "undefined") {
-      return initialValue;
-    }
     try {
       const item = window.localStorage.getItem(key);
 
       return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error(
-        "There is a problem with getting items from local storage",
-        error
-      );
+    } catch {
       return initialValue;
     }
   });
@@ -27,13 +36,8 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         value instanceof Function ? value(storedValue) : value;
 
       setStoredValue(valueToStore);
-
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      }
-    } catch (error) {
-      console.error("There is a problem with saving to local storage", error);
-    }
+      localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch {}
   };
   return [storedValue, setValue] as const;
 };

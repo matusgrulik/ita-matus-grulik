@@ -1,5 +1,5 @@
 import { PostsContext } from "./BlogApp";
-import { convertToSlug } from "../Utils/stringToSlug";
+import { convertToSlug } from "./utils";
 import { themes } from "./Theme";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
@@ -77,9 +77,15 @@ export const NewPost = () => {
       authorName.trim() === "" ||
       postText.trim() === ""
     ) {
-      setAuthorError("Author is required");
-      setTitleError("Title is required");
-      setTextError("Text is required");
+      if (authorName.trim() === "") {
+        setAuthorError("Author is required");
+      }
+      if (postText.trim() === "") {
+        setTextError("Text is required");
+      }
+      if (postTitle.trim() === "") {
+        setTitleError("Title is required");
+      }
       return;
     }
 
