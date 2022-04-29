@@ -18,7 +18,7 @@ const useBlogLogic = () => {
     newPostText: string,
     newSlug: string
   ) => {
-    const newPost: PostState = {
+    const newPost = {
       postTitle: newPostTitle,
       authorName: newAuthorName,
       postText: newPostText,

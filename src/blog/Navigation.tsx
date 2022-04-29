@@ -3,8 +3,8 @@ import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { NewPost } from "./NewPost";
 import { OnePost } from "./OnePost";
 import { PostLibrary } from "./PostLibrary";
-import { URL_BASE, urls } from "./utils";
 import { themes } from "./Theme";
+import { urls } from "./utils";
 import { useContext } from "react";
 import styled from "styled-components";
 
@@ -42,7 +42,7 @@ export const Navigation = () => {
       <div>
         <Nav>
           <DivLink>
-            <LinkNav to={URL_BASE}>All Posts</LinkNav>
+            <LinkNav to={urls.URL_BASE}>All Posts</LinkNav>
             <LinkNav to={urls.URL_NEWPOST}>New Post</LinkNav>
           </DivLink>
         </Nav>
@@ -52,14 +52,11 @@ export const Navigation = () => {
             <NewPost />
           </Route>
           {posts.map((post, index) => (
-            <Route
-              key={index}
-              path={URL_BASE + urls.URL_ARTICLE + post.slug + "-" + post.id}
-            >
+            <Route key={index} path={urls.URL_ONEPOST(post.slug, post.id)}>
               <OnePost post={post} />
             </Route>
           ))}
-          <Route path={URL_BASE}>
+          <Route path={urls.URL_BASE}>
             <PostLibrary />
           </Route>
         </Switch>

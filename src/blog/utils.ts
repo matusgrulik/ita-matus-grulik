@@ -1,10 +1,15 @@
 import { useState } from "react";
 export const URL_BASE = "/Blogpost/";
+
 export const urls = {
   URL_BASE: "/Blogpost/",
   URL_NEWPOST: URL_BASE + "NewPost",
   URL_ARTICLE: "Article/",
+  URL_ONEPOST: (postSlug: string, postId: number) => {
+    return URL_BASE + urls.URL_ARTICLE + postSlug + "-" + postId;
+  },
 };
+
 /**
  * help: https://stackoverflow.com/questions/1053902/how-to-convert-a-title-to-a-url-slug-in-jquery
  */

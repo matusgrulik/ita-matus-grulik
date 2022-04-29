@@ -23,7 +23,7 @@ export const PostLibrary = () => {
     <DivWrapper>
       {posts.map((post, index) => {
         return (
-          <Link key={index} to={urls.URL_ARTICLE + post.slug + "-" + post.id}>
+          <Link key={index} to={urls.URL_ONEPOST(post.slug, post.id)}>
             <br />
             {post.postTitle}
           </Link>

@@ -1,7 +1,10 @@
+import * as yup from "yup";
 import { BlogContext } from "./BlogContext";
 import { convertToSlug } from "./utils";
 import { themes } from "./Theme";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 
 const ErrorDiv = styled.div`
@@ -61,49 +64,35 @@ export const NewPost = () => {
   const [authorName, setAuthorName] = useState("");
   const [postText, setPostText] = useState("");
   const [slug, setSlug] = useState("");
-  const [titleError, setTitleError] = useState<string | null>(null);
-  const [authorError, setAuthorError] = useState<string | null>(null);
-  const [textError, setTextError] = useState<string | null>(null);
 
-  function onSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-
-    setAuthorError(null);
-    setTitleError(null);
-    setTextError(null);
-    if (
-      postTitle.trim() === "" ||
-      authorName.trim() === "" ||
-      postText.trim() === ""
-    ) {
-      if (authorName.trim() === "") {
-        setAuthorError("Author is required");
-      }
-      if (postText.trim() === "") {
-        setTextError("Text is required");
-      }
-      if (postTitle.trim() === "") {
-        setTitleError("Title is required");
-      }
-      return;
-    }
-
+  const inputsSchema = yup.object().shape({
+    postTitle: yup.string().required("Post Title is required"),
+    authorName: yup.string().required("Author Name is required"),
+    textArea: yup.string().required("Text is required"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(inputsSchema) });
+  const submitForm = () => {
     addPost(postTitle, authorName, postText, slug);
     setPostTitle("");
     setAuthorName("");
     setPostText("");
     setSlug("");
-  }
+  };
 
   return (
     <div>
       <Form>
         <InputDiv>
-          <ErrorDiv>{titleError}</ErrorDiv>
+          <ErrorDiv>{errors.postTitle?.message}</ErrorDiv>
           <Label>Post Title</Label>
           <Input
+            {...register("postTitle")}
             type="text"
-            name="post title"
+            name="postTitle"
             placeholder="Post Title"
             value={postTitle}
             onChange={(e) => {
@@ -113,28 +102,31 @@ export const NewPost = () => {
           />
         </InputDiv>
         <InputDiv>
-          <ErrorDiv>{authorError}</ErrorDiv>
+          <ErrorDiv>{errors.authorName?.message}</ErrorDiv>
           <Label>Author Name</Label>
           <Input
+            {...register("authorName")}
             type="text"
-            name="author name"
+            name="authorName"
             placeholder="Author's Name"
             value={authorName}
             onChange={(e) => setAuthorName(e.target.value)}
           />
         </InputDiv>
         <InputDiv>
-          <ErrorDiv>{textError}</ErrorDiv>
+          <ErrorDiv>{errors.textArea?.message}</ErrorDiv>
           <Label>Text Area</Label>
           <textarea
+            {...register("textArea")}
             required
+            name="textArea"
             placeholder="#markdown"
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
           ></textarea>
         </InputDiv>
         <div>
-          <Button onClick={onSubmit}>Submit</Button>
+          <Button onClick={handleSubmit(submitForm)}>Submit</Button>
         </div>
       </Form>
     </div>
