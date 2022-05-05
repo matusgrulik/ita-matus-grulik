@@ -57,7 +57,11 @@ const InputDiv = styled.div`
   width: 50%;
   margin: 1.5em 0 2em 0;
 `;
-
+const inputsSchema = yup.object().shape({
+  postTitle: yup.string().required("Post Title is required"),
+  authorName: yup.string().required("Author Name is required"),
+  textArea: yup.string().required("Text is required"),
+});
 export const NewPost = () => {
   const { addPost } = useContext(BlogContext);
   const [postTitle, setPostTitle] = useState("");
@@ -65,16 +69,7 @@ export const NewPost = () => {
   const [postText, setPostText] = useState("");
   const [slug, setSlug] = useState("");
 
-  const inputsSchema = yup.object().shape({
-    postTitle: yup.string().required("Post Title is required"),
-    authorName: yup.string().required("Author Name is required"),
-    textArea: yup.string().required("Text is required"),
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(inputsSchema) });
+  const form = useForm({ resolver: yupResolver(inputsSchema) });
   const submitForm = () => {
     addPost(postTitle, authorName, postText, slug);
     setPostTitle("");
@@ -87,10 +82,10 @@ export const NewPost = () => {
     <div>
       <Form>
         <InputDiv>
-          <ErrorDiv>{errors.postTitle?.message}</ErrorDiv>
+          <ErrorDiv>{form.formState.errors.postTitle?.message}</ErrorDiv>
           <Label>Post Title</Label>
           <Input
-            {...register("postTitle")}
+            {...form.register("postTitle")}
             type="text"
             name="postTitle"
             placeholder="Post Title"
@@ -102,10 +97,10 @@ export const NewPost = () => {
           />
         </InputDiv>
         <InputDiv>
-          <ErrorDiv>{errors.authorName?.message}</ErrorDiv>
+          <ErrorDiv>{form.formState.errors.authorName?.message}</ErrorDiv>
           <Label>Author Name</Label>
           <Input
-            {...register("authorName")}
+            {...form.register("authorName")}
             type="text"
             name="authorName"
             placeholder="Author's Name"
@@ -114,10 +109,10 @@ export const NewPost = () => {
           />
         </InputDiv>
         <InputDiv>
-          <ErrorDiv>{errors.textArea?.message}</ErrorDiv>
+          <ErrorDiv>{form.formState.errors.textArea?.message}</ErrorDiv>
           <Label>Text Area</Label>
           <textarea
-            {...register("textArea")}
+            {...form.register("textArea")}
             required
             name="textArea"
             placeholder="#markdown"
@@ -126,7 +121,7 @@ export const NewPost = () => {
           ></textarea>
         </InputDiv>
         <div>
-          <Button onClick={handleSubmit(submitForm)}>Submit</Button>
+          <Button onClick={form.handleSubmit(submitForm)}>Submit</Button>
         </div>
       </Form>
     </div>

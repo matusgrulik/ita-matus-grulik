@@ -4,7 +4,7 @@ import { NewPost } from "./NewPost";
 import { OnePost } from "./OnePost";
 import { PostLibrary } from "./PostLibrary";
 import { themes } from "./Theme";
-import { urls } from "./utils";
+import { urls } from "./config";
 import { useContext } from "react";
 import styled from "styled-components";
 
@@ -52,7 +52,7 @@ export const Navigation = () => {
             <NewPost />
           </Route>
           {posts.map((post, index) => (
-            <Route key={index} path={urls.URL_ONEPOST(post.slug, post.id)}>
+            <Route key={index} path={urls.url_OnePost(post.slug, post.id)}>
               <OnePost post={post} />
             </Route>
           ))}

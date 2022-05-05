@@ -1,7 +1,7 @@
 import { BlogContext } from "./BlogContext";
 import { Link } from "react-router-dom";
 import { themes } from "./Theme";
-import { urls } from "./utils";
+import { urls } from "./config";
 import { useContext } from "react";
 import styled from "styled-components";
 const DivWrapper = styled.div`
@@ -10,12 +10,12 @@ const DivWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 880px;
-
-  a {
-    text-decoration: ${themes.textDecoration};
-    color: ${themes.primaryColor};
-    padding: 0.5em;
-  }
+`;
+const DivPostLink = styled(Link)`
+text-decoration: ${themes.textDecoration};
+color: ${themes.primaryColor};
+padding: 0.5em;
+}
 `;
 export const PostLibrary = () => {
   const { posts } = useContext(BlogContext);
@@ -23,10 +23,10 @@ export const PostLibrary = () => {
     <DivWrapper>
       {posts.map((post, index) => {
         return (
-          <Link key={index} to={urls.URL_ONEPOST(post.slug, post.id)}>
+          <DivPostLink key={index} to={urls.url_OnePost(post.slug, post.id)}>
             <br />
             {post.postTitle}
-          </Link>
+          </DivPostLink>
         );
       })}
     </DivWrapper>
