@@ -12,18 +12,17 @@ const DivWrapper = styled.div`
   max-width: 880px;
 `;
 const DivPostLink = styled(Link)`
-text-decoration: ${themes.textDecoration};
-color: ${themes.primaryColor};
-padding: 0.5em;
-}
+  text-decoration: ${themes.textDecoration};
+  color: ${themes.primaryColor};
+  padding: 0.5em;
 `;
 export const PostLibrary = () => {
-  const { posts } = useContext(BlogContext);
+  const posts = useContext(BlogContext);
   return (
     <DivWrapper>
-      {posts.map((post, index) => {
+      {posts.posts.map((post, index) => {
         return (
-          <DivPostLink key={index} to={urls.url_OnePost(post.slug, post.id)}>
+          <DivPostLink key={index} to={urls.onePost(post.slug, post.id)}>
             <br />
             {post.postTitle}
           </DivPostLink>

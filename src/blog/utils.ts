@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+export const getId = () => Math.random().toString(36).replace("0.", "");
 /**
  * help: https://stackoverflow.com/questions/1053902/how-to-convert-a-title-to-a-url-slug-in-jquery
  */

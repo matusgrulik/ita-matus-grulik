@@ -1,11 +1,11 @@
 import { genericHookContextBuilder } from "./GenericHookContextBuilder";
-import { useLocalStorage } from "./utils";
+import { getId, useLocalStorage } from "./utils";
 
 export type PostState = {
   authorName: string;
   postTitle: string;
   postText: string;
-  id: number;
+  id: string;
   slug: string;
 };
 
@@ -22,7 +22,7 @@ const useBlogLogic = () => {
       postTitle: newPostTitle,
       authorName: newAuthorName,
       postText: newPostText,
-      id: posts.length,
+      id: getId(),
       slug: newSlug,
     };
     setPosts((p) => [newPost, ...p]);

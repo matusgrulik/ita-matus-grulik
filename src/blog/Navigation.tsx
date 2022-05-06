@@ -36,27 +36,27 @@ const DivLink = styled.div`
 `;
 
 export const Navigation = () => {
-  const { posts } = useContext(BlogContext);
+  const posts = useContext(BlogContext);
   return (
     <Router>
       <div>
         <Nav>
           <DivLink>
-            <LinkNav to={urls.URL_BASE}>All Posts</LinkNav>
-            <LinkNav to={urls.URL_NEWPOST}>New Post</LinkNav>
+            <LinkNav to={urls.BASE}>All Posts</LinkNav>
+            <LinkNav to={urls.NEWPOST}>New Post</LinkNav>
           </DivLink>
         </Nav>
 
         <Switch>
-          <Route path={urls.URL_NEWPOST}>
+          <Route path={urls.NEWPOST}>
             <NewPost />
           </Route>
-          {posts.map((post, index) => (
-            <Route key={index} path={urls.url_OnePost(post.slug, post.id)}>
+          {posts.posts.map((post, index) => (
+            <Route key={index} path={urls.onePost(post.slug, post.id)}>
               <OnePost post={post} />
             </Route>
           ))}
-          <Route path={urls.URL_BASE}>
+          <Route path={urls.BASE}>
             <PostLibrary />
           </Route>
         </Switch>
