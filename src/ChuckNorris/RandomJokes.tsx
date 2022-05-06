@@ -1,12 +1,12 @@
+import { NUMBER_OF_JOKES } from "./utils";
 import { OneJoke } from "./OneJoke";
-import { URL_RANDOM } from "./Config";
 import { removeDuplicate } from "./ArrayUtils";
 import { themes } from "./Theme";
+import { urls } from "./Config";
 import { useEffect, useState } from "react";
 import loadingGIF from "./Spinner-1.9s-204px.svg";
 import styled from "styled-components";
 
-//STYLE//
 const DivLoading = styled.div`
   position: relative;
   left: calc(50% - 100px);
@@ -30,10 +30,6 @@ const DivError = styled.div`
   text-transform: ${themes.textTransform};
 `;
 
-//CODE//
-
-const NUMBER_OF_JOKES = 20;
-
 export type JokeType = {
   categories: string[];
   created_at: string;
@@ -55,7 +51,7 @@ export const RandomJokes = () => {
       try {
         while (jokesArray.length < NUMBER_OF_JOKES) {
           setLoadingJokes(true);
-          const response = await fetch(URL_RANDOM);
+          const response = await fetch(urls.RANDOM);
           const data: JokeType = await response.json();
           jokesArray.push(data);
           const isDuplicate = removeDuplicate(jokesArray);
@@ -79,7 +75,7 @@ export const RandomJokes = () => {
       )}
 
       {error ? (
-        <DivError> Unable to get data from ${URL_RANDOM} </DivError>
+        <DivError> Unable to get data from ${urls.RANDOM} </DivError>
       ) : null}
 
       <Ul>

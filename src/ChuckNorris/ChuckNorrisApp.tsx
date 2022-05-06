@@ -1,14 +1,13 @@
 import { CategoryJoke } from "./CategoryJoke";
-import { Helmet } from "react-helmet";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { RandomJokes } from "./RandomJokes";
-import { URL_ALL_CATEGORIES, URL_BASE } from "./Config";
 import { themes } from "./Theme";
+import { url } from "inspector";
+import { urls } from "./Config";
 import { useEffect, useState } from "react";
 import loadingGIF from "./Spinner-1.9s-204px.svg";
 import styled from "styled-components";
 
-//STYLE//
 const DivWrapper = styled.div`
   margin: auto;
   max-width: 880px;
@@ -36,14 +35,13 @@ const DivError = styled.div`
 const LinkRandom = styled(Link)`
   text-decoration: ${themes.textDecoration};
   color: ${themes.secondaryColor};
-  font-weight: ${themes.fontBold};
   font-family: ${themes.secondaryFont};
   width: 100%;
   display: flex;
   justify-content: center;
 
   &:hover {
-    color: ${themes.primaryColor};
+    font-weight: ${themes.fontBold};
   }
 `;
 
@@ -66,7 +64,6 @@ const LinkCategory = styled(Link)`
   text-align: center;
 
   &:hover {
-    color: ${themes.primaryColor};
     font-weight: ${themes.fontBold};
   }
 `;
@@ -94,8 +91,6 @@ const DivLoading = styled.div`
   left: calc(50% - 100px);
 `;
 
-//CODE//
-
 export const ChuckNorrisApp = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [error, setError] = useState(false);
@@ -105,7 +100,7 @@ export const ChuckNorrisApp = () => {
     const getCategories = async () => {
       try {
         setLoading(true);
-        const response = await fetch(URL_ALL_CATEGORIES);
+        const response = await fetch(urls.ALL_CATEGORIES);
         const data: string[] = await response.json();
         setCategories(data);
       } catch {
@@ -119,10 +114,6 @@ export const ChuckNorrisApp = () => {
 
   return (
     <DivWrapper>
-      <Helmet>
-        <style>{`body { background-color: ${themes.tertiaryColor}}`}</style>
-      </Helmet>
-
       <H1>Chuck Norris Jokes</H1>
       <Router>
         {loading && (
@@ -131,29 +122,31 @@ export const ChuckNorrisApp = () => {
           </DivLoading>
         )}
         {error ? (
-          <DivError> Unable to get data from ${URL_ALL_CATEGORIES} </DivError>
+          <DivError> Unable to get data from ${urls.ALL_CATEGORIES} </DivError>
         ) : null}
 
         <DivRandomJokes>
-          <LinkRandom to={"/RandomJokes"}>Random jokes</LinkRandom>
+          <LinkRandom to={urls.RANDOM_JOKES}>Random jokes</LinkRandom>
         </DivRandomJokes>
 
         <Ul>
           {categories.map((category) => {
             return (
               <Li key={category}>
-                <LinkCategory to={URL_BASE + category}>{category}</LinkCategory>
+                <LinkCategory to={urls.BASE + category}>
+                  {category}
+                </LinkCategory>
               </Li>
             );
           })}
         </Ul>
 
         <Switch>
-          <Route path={"/RandomJokes"}>
+          <Route path={urls.RANDOM_JOKES}>
             <RandomJokes />
           </Route>
           {categories.map((category, index) => (
-            <Route key={index} path={URL_BASE + category}>
+            <Route key={index} path={urls.BASE + category}>
               <CategoryJoke category={category} />
             </Route>
           ))}

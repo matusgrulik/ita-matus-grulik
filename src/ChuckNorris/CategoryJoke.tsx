@@ -1,13 +1,13 @@
 import { JokeType } from "./RandomJokes";
+import { NUMBER_OF_ATTEMPTS } from "./utils";
+import { NUMBER_OF_CATEGORY_JOKES } from "./utils";
 import { OneJoke } from "./OneJoke";
-import { URL_CATEGORY } from "./Config";
 import { removeDuplicate } from "./ArrayUtils";
 import { themes } from "./Theme";
+import { urls } from "./Config";
 import { useEffect, useState } from "react";
 import loadingGIF from "./Spinner-1.9s-204px.svg";
 import styled from "styled-components";
-
-//STYLE//
 
 const H3 = styled.h3`
   text-align: ${themes.textAlign};
@@ -34,12 +34,6 @@ const DivLoading = styled.div`
   position: relative;
   left: calc(50% - 100px);
 `;
-
-//CODE//
-
-const NUMBER_OF_CATEGORY_JOKES = 5;
-const NUMBER_OF_ATTEMPTS = 20;
-
 export const CategoryJoke = (props: { category: string }) => {
   const [categoryJokes, setCategoryJokes] = useState<JokeType[]>([]);
   const [error, setError] = useState(false);
@@ -53,7 +47,7 @@ export const CategoryJoke = (props: { category: string }) => {
         while (jokesArray.length < NUMBER_OF_CATEGORY_JOKES) {
           setLoading(true);
           counter++;
-          const response = await fetch(URL_CATEGORY + props.category);
+          const response = await fetch(urls.CATEGORY + props.category);
           const data: JokeType = await response.json();
           jokesArray.push(data);
           const isDuplicate = removeDuplicate(jokesArray);
@@ -82,7 +76,7 @@ export const CategoryJoke = (props: { category: string }) => {
 
       {error ? (
         <DivError>
-          Unable to get data from ${URL_CATEGORY + props.category}
+          Unable to get data from ${urls.CATEGORY + props.category}
         </DivError>
       ) : (
         ""
