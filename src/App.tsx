@@ -1,4 +1,5 @@
 import { BlogApp } from "./blog/BlogApp";
+import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PexesoApp } from "./Pexeso/PexesoApp";
 import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
@@ -42,6 +43,9 @@ export default function App() {
             <div>
               <LinkNav to={appUrls.PEXESO}>Pexeso</LinkNav>
             </div>
+            <div>
+              <LinkNav to={appUrls.CHUNK_NORRIS}>Chunk Norris</LinkNav>
+            </div>
           </DivWrapper>
         </nav>
 
@@ -62,6 +66,10 @@ export default function App() {
 
           <Route path={appUrls.BLOG}>
             <BlogApp />
+          </Route>
+
+          <Route path={appUrls.CHUNK_NORRIS}>
+            <ChuckNorrisApp />
           </Route>
 
           <Route path={appUrls.HOME_PAGE}>

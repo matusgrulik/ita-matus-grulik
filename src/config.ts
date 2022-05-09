@@ -5,4 +5,5 @@ export const appUrls = {
   BLOG: "/blog",
   TIC_TAC_TOE: "/tictactoe",
   PEXESO: "/pexeso",
+  CHUNK_NORRIS: "/chunkNorris",
 };
