@@ -1,10 +1,8 @@
-import { Helmet } from "react-helmet";
 import { Theme } from "./Theme";
 import { combineReducers, createStore } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-//STYLE//
 const H1 = styled.h1`
   text-align: ${Theme.textAlign};
   font-family: ${Theme.primaryFont};
@@ -45,8 +43,6 @@ const Button = styled.button`
     color: ${Theme.primaryColor};
   }
 `;
-
-//CODE//
 
 const INCREMENT1 = "INCREMENT1" as const;
 const DECREMENT1 = "DECREMENT1" as const;
@@ -106,9 +102,6 @@ export const CounterInRedux = () => {
 
   return (
     <DivWrapper>
-      <Helmet>
-        <style>{`body { background-color: ${Theme.tertiaryColor}}}`}</style>
-      </Helmet>
       <H1>Counter in Redux </H1>
       <H2>Your current number is: {count} </H2>
       <Button onClick={() => dispatch(buttonsAction().onIncrement1())}>
