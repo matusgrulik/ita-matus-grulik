@@ -1,22 +1,23 @@
-import { Theme } from "./Theme";
+import { GetAllReduxActions, GetStateFromReducers } from "./utils";
 import { combineReducers, createStore } from "redux";
+import { theme } from "./Theme";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const H1 = styled.h1`
-  text-align: ${Theme.textAlign};
-  font-family: ${Theme.primaryFont};
+  text-align: ${theme.textAlign};
+  font-family: ${theme.primaryFont};
   padding-top: 1.5em;
-  color: ${Theme.primaryColor};
+  color: ${theme.primaryColor};
   font-size: 3em;
 `;
 
 const H2 = styled.h2`
-  text-align: ${Theme.textAlign};
-  font-family: ${Theme.secondaryFont};
+  text-align: ${theme.textAlign};
+  font-family: ${theme.secondaryFont};
   padding-top: 2em;
   padding-bottom: 2em;
-  color: ${Theme.primaryColor};
+  color: ${theme.primaryColor};
   width: 100%;
   font-weight: inherit;
 `;
@@ -28,49 +29,84 @@ const DivWrapper = styled.div`
   margin: auto;
 `;
 const Button = styled.button`
-  font-family: ${Theme.secondaryFont};
+  font-family: ${theme.secondaryFont};
   font-size: 1em;
   padding: 0.5em 1em;
   margin: 1em;
-  text-transform: ${Theme.textTransform};
-  background: ${Theme.primaryColor};
-  color: ${Theme.secondaryColor};
+  text-transform: ${theme.textTransform};
+  background: ${theme.primaryColor};
+  color: ${theme.secondaryColor};
   border-radius: 5px;
 
   &:hover {
     cursor: pointer;
-    background: ${Theme.secondaryColor};
-    color: ${Theme.primaryColor};
+    background: ${theme.secondaryColor};
+    color: ${theme.primaryColor};
   }
 `;
 
-const INCREMENT1 = "INCREMENT1" as const;
-const DECREMENT1 = "DECREMENT1" as const;
-const INCREMENT2 = "INCREMENT2" as const;
-const DECREMENT2 = "DECREMENT2" as const;
+/**
+ * inspiration: https://dev.to/svehla/typescript-100-type-safe-react-redux-under-20-lines-4h8n
+ */
+
+const INCREMENT = "INCREMENT1" as const;
+const DECREMENT = "DECREMENT1" as const;
 const POW2 = "POW2" as const;
 const POWSTATE = "POWSTATE" as const;
 const DIVIDED2 = "DIVIDED2" as const;
 const SQRTSTATE = "SQRTSTATE" as const;
 
-const countReducer = (state = 0, action: { type: any }) => {
+const increment = (incrementBy: number) => ({
+  type: INCREMENT,
+  incrementBy,
+});
+const decrement = (decrementBy: number) => ({
+  type: DECREMENT,
+  decrementBy,
+});
+const pow2 = (powBy: number) => ({
+  type: POW2,
+  powBy,
+});
+const powState = (powStateBy: number) => ({
+  type: POWSTATE,
+  powStateBy,
+});
+const devided = (devidedBy: number) => ({
+  type: DIVIDED2,
+  devidedBy,
+});
+const sqrtState = (sqrtStateBy: number) => ({
+  type: SQRTSTATE,
+  sqrtStateBy,
+});
+
+type ActionType =
+  | ReturnType<typeof increment>
+  | ReturnType<typeof decrement>
+  | ReturnType<typeof pow2>
+  | ReturnType<typeof powState>
+  | ReturnType<typeof devided>
+  | ReturnType<typeof sqrtState>;
+
+const defaultState = {
+  value: 0,
+};
+
+const countReducer = (state = defaultState, action: ActionType) => {
   switch (action.type) {
-    case INCREMENT1:
-      return state + 1;
-    case DECREMENT1:
-      return state - 1;
-    case INCREMENT2:
-      return state + 2;
-    case DECREMENT2:
-      return state - 2;
+    case INCREMENT:
+      return { ...state, value: state.value + action.incrementBy };
+    case DECREMENT:
+      return { ...state, value: state.value - action.decrementBy };
     case POW2:
-      return state ** 2;
+      return { ...state, value: state.value ** action.powBy };
     case POWSTATE:
-      return state ** state;
+      return { ...state, value: state.value ** state.value };
     case DIVIDED2:
-      return state / 2;
+      return { ...state, value: state.value / action.devidedBy };
     case SQRTSTATE:
-      return Math.sqrt(state);
+      return { ...state, value: Math.sqrt(state.value) };
     default:
       return state;
   }
@@ -81,20 +117,11 @@ const allReducers = combineReducers({
 
 export const store = createStore(allReducers);
 
-type RootState = ReturnType<typeof allReducers>;
+export type GlobalState = GetStateFromReducers<typeof allReducers>;
 
-const buttonsAction = () => ({
-  onIncrement1: () => ({ type: INCREMENT1 }),
-  onIncrement2: () => ({ type: INCREMENT2 }),
-  onDecrement1: () => ({ type: DECREMENT1 }),
-  onDecrement2: () => ({ type: DECREMENT2 }),
-  onPow2: () => ({ type: POW2 }),
-  onPowState: () => ({ type: POWSTATE }),
-  onDivided: () => ({ type: DIVIDED2 }),
-  onSquareRoot: () => ({ type: SQRTSTATE }),
-});
+export type AllReduxActions = GetAllReduxActions<typeof allReducers>;
 
-const counterSelector = (state: RootState) => state.counter;
+const counterSelector = (state: GlobalState) => state.counter.value;
 
 export const CounterInRedux = () => {
   const count = useSelector(counterSelector);
@@ -104,28 +131,60 @@ export const CounterInRedux = () => {
     <DivWrapper>
       <H1>Counter in Redux </H1>
       <H2>Your current number is: {count} </H2>
-      <Button onClick={() => dispatch(buttonsAction().onIncrement1())}>
+      <Button
+        onClick={() => {
+          dispatch(increment(1));
+        }}
+      >
         increment 1
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onDecrement1())}>
-        decrement 1
-      </Button>
-      <Button onClick={() => dispatch(buttonsAction().onIncrement2())}>
+      <Button
+        onClick={() => {
+          dispatch(increment(2));
+        }}
+      >
         increment 2
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onDecrement2())}>
+      <Button
+        onClick={() => {
+          dispatch(decrement(1));
+        }}
+      >
+        decrement 1
+      </Button>
+      <Button
+        onClick={() => {
+          dispatch(decrement(2));
+        }}
+      >
         decrement 2
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onPow2())}>
+      <Button
+        onClick={() => {
+          dispatch(pow2(2));
+        }}
+      >
         exponent 2
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onPowState())}>
+      <Button
+        onClick={() => {
+          dispatch(powState(count));
+        }}
+      >
         exponent current number
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onDivided())}>
+      <Button
+        onClick={() => {
+          dispatch(devided(2));
+        }}
+      >
         divided 2
       </Button>
-      <Button onClick={() => dispatch(buttonsAction().onSquareRoot())}>
+      <Button
+        onClick={() => {
+          dispatch(sqrtState(count));
+        }}
+      >
         square root of current number
       </Button>
     </DivWrapper>
