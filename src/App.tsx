@@ -1,7 +1,9 @@
 import { BlogApp } from "./blog/BlogApp";
 import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
+import { CounterInRedux, store } from "./CounterRedux/CounterApp";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PexesoApp } from "./Pexeso/PexesoApp";
+import { Provider } from "react-redux";
 import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
 import { TodoApp } from "./ToDoList/TodoApp";
 import { appUrls } from "./config";
@@ -9,7 +11,7 @@ import styled from "styled-components";
 
 const DivWrapper = styled.div`
   display: flex;
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 2em;
   justify-content: center;
 `;
@@ -46,6 +48,9 @@ export default function App() {
             <div>
               <LinkNav to={appUrls.CHUNK_NORRIS}>Chunk Norris</LinkNav>
             </div>
+            <div>
+              <LinkNav to={appUrls.REDUX_COUNTER}>Counter in redux</LinkNav>
+            </div>
           </DivWrapper>
         </nav>
 
@@ -55,6 +60,11 @@ export default function App() {
           <Route path={appUrls.TO_DO_LIST}>
             <TodoApp />
           </Route>
+          <Provider store={store}>
+            <Route path={appUrls.REDUX_COUNTER}>
+              <CounterInRedux />
+            </Route>
+          </Provider>
 
           <Route path={appUrls.TIC_TAC_TOE}>
             <TicTacToeApp />
