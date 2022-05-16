@@ -1,64 +1,72 @@
-import "./hackertyper.css";
-import Message from "./Components/Message";
-import React, { useEffect, useRef, useState } from "react";
+import { code } from "./code";
+import { theme } from "./Theme";
+import React, { useState } from "react";
+import styled from "styled-components";
 
-const CHARS_PER_STROKES = 5;
-const CHARS_TO_DENIED = 300;
-const CHARS_TO_SUCCESS = 900;
+const TextArea = styled.textarea`
+  height: 70vh;
+  min-width: 350px;
+  background: ${theme.primaryColor};
+  border: 3px solid ${theme.secondaryColor};
+  padding: 15px 20px;
+  font-size: ${theme.fontSize};
+  color: #00ff00;
+  margin-left: ${theme.marginLeft};
+`;
 
-function HackerTyper() {
-  const [sourceCode, setSourceCode] = useState("");
-  const [content, setContent] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [messageType, setMessageType] = useState("denied");
-  const [isLocked, setIsLocked] = useState(false);
-  const containerRef = useRef(null);
-  const paragraphRef = useRef(null);
+const DivTitle = styled.div`
+  font-weight: bold;
+`;
 
-  useEffect(() => {
-    //@ts-expect-error
-    containerRef.current.focus();
-    fetch("code.txt")
-      .then((res) => res.text())
-      .then((text) => setSourceCode(text));
-  }, []);
+const DivTitleBar = styled.div`
+  background: ${theme.primaryColor};
+  border: 2px solid ${theme.secondaryColor};
+  border-radius: 10px 10px 0 0;
+  padding: 10px 15px;
+  color: ${theme.secondaryColor};
+  margin-left: ${theme.marginLeft};
+`;
 
-  const runScript = () => {
-    if (isLocked) return;
-    setCurrentIndex(currentIndex + CHARS_PER_STROKES);
-    setContent(sourceCode.substring(0, currentIndex));
-    //@ts-expect-error
-    paragraphRef.current.scrollIntoView();
-    if (currentIndex !== 0 && currentIndex % CHARS_TO_DENIED === 0) {
-      setIsLocked(true);
-      setMessageType("denied");
+const DivWindow = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  min-height: 450px;
+`;
+
+const CHUNK_SIZE = 4;
+const FILE = code;
+const FILE_SIZE = FILE.length;
+const TOTAL_CHUNKS = Math.ceil(FILE_SIZE / CHUNK_SIZE);
+
+export const HackerTyper = () => {
+  const [hackerTyper, setHackerTyper] = useState("");
+  const [currentChunk, setCurrentChunk] = useState(1);
+
+  const pasteChunk = () => {
+    if (currentChunk >= TOTAL_CHUNKS) {
+      setHackerTyper("");
+      setCurrentChunk(1);
     }
-    if (currentIndex !== 0 && currentIndex % CHARS_TO_SUCCESS === 0) {
-      setIsLocked(true);
-      setMessageType("success");
-    }
+
+    const offset = (currentChunk - 1) * CHUNK_SIZE;
+    const currentFilePart = FILE.slice(offset, offset + CHUNK_SIZE);
+
+    setHackerTyper((p) => "" + p + currentFilePart);
+    setCurrentChunk((p) => p + 1);
   };
-  const removeMessage = () => {
-    setIsLocked(false);
+
+  const handleKeyPress = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    pasteChunk();
   };
-  const handleKeyDown = (e: any) => {
-    if (e.key !== "Escape") runScript();
-    else removeMessage();
-  };
+
   return (
-    <>
-      <div
-        id="container"
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
-        ref={containerRef}
-      >
-        <div id="source">{content}</div>
-        <p ref={paragraphRef}></p>
-        {isLocked && <Message type={messageType} />}
-      </div>
-    </>
+    <DivWindow>
+      <DivTitleBar>
+        <DivTitle>Hacker Typer - become a hacker</DivTitle>
+      </DivTitleBar>
+      <TextArea value={hackerTyper} onChange={handleKeyPress} />
+    </DivWindow>
   );
-}
-
-export default HackerTyper;
+};
