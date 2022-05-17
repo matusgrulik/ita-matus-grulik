@@ -1,6 +1,7 @@
 import { BlogApp } from "./blog/BlogApp";
 import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
 import { CounterInRedux, store } from "./CounterRedux/CounterApp";
+import { HackerTyper } from "./hackerTyper/HackerTyper";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PexesoApp } from "./Pexeso/PexesoApp";
 import { Provider } from "react-redux";
@@ -55,16 +56,13 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path={appUrls.HACKER_TYPER}>{/*<HackerTyper />*/}</Route>
+          <Route path={appUrls.HACKER_TYPER}>
+            <HackerTyper />
+          </Route>
 
           <Route path={appUrls.TO_DO_LIST}>
             <TodoApp />
           </Route>
-          <Provider store={store}>
-            <Route path={appUrls.REDUX_COUNTER}>
-              <CounterInRedux />
-            </Route>
-          </Provider>
 
           <Route path={appUrls.TIC_TAC_TOE}>
             <TicTacToeApp />
@@ -87,6 +85,12 @@ export default function App() {
               <h1>HOMEWORKS</h1>
             </DivWrapper>
           </Route>
+
+          <Provider store={store}>
+            <Route path={appUrls.REDUX_COUNTER}>
+              <CounterInRedux />
+            </Route>
+          </Provider>
         </Switch>
       </div>
     </Router>
