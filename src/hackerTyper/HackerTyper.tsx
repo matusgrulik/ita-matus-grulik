@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { code } from "./code";
 import { theme } from "./Theme";
 import React, { useState } from "react";
@@ -63,6 +64,9 @@ export const HackerTyper = () => {
 
   return (
     <DivWindow>
+      <Helmet>
+        <title>Hacker Typer</title>
+      </Helmet>
       <DivTitleBar>
         <DivTitle>Hacker Typer - become a hacker</DivTitle>
       </DivTitleBar>

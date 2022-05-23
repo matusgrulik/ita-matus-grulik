@@ -1,15 +1,10 @@
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Helmet } from "react-helmet";
 import { LinkActive, LinkAll, LinkCompleted } from "./UrlBasement";
-import {
-  Redirect,
-  Route,
-  BrowserRouter as Router,
-  Switch,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { STORAGE_NAME } from "./utils";
 import { TaskType } from "./Task";
 import { Tasks } from "./Tasks";
-import { TickIcon } from "./Icons";
 import { getId } from "./utils";
 import { themes } from "./Theme";
 import { useLocalStorage } from "./utils";
@@ -20,6 +15,7 @@ const H1 = styled.h1`
   margin-left: 1em;
   margin-bottom: 1em;
   text-transform: uppercase;
+  text-align: center;
 `;
 
 const DivTaskFilters = styled.div`
@@ -30,25 +26,27 @@ const DivTaskFilters = styled.div`
 const DivTaskList = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 75vh;
   overflow: auto;
   padding-right: 15px;
 `;
 
 const DivWrapper = styled.div`
   font-family: ${themes.primaryFont};
-  width: 30em;
   margin-top: 10em;
-  margin-left: 47em;
+  margin-left: 30em;
+  width: 50%;
 `;
 
 const Button = styled.button`
-  border: none;
+  margin-left: 1rem;
+  border: 2px solid ${themes.secondaryColor};
+  border-radius: 10px;
+  text-transform: uppercase;
   background: transparent;
   cursor: pointer;
-  & > svg {
-    height: 3em;
-  }
+  font-weight: bold;
+  color: ${themes.secondaryColor};
+  font-size: 1rem;
 `;
 
 const InputAddTask = styled.input`
@@ -133,19 +131,17 @@ export const TodoApp = () => {
             value={taskInput}
             onKeyPress={handleAddKey}
           />
-          <Button onClick={addTask}>
-            <TickIcon />
-          </Button>
+          <Button onClick={addTask}>Add task</Button>
         </DivAddTaskBox>
         <DivTaskFilters>
           <LinkAll />
           <LinkActive />
           <LinkCompleted />
         </DivTaskFilters>
+
         <DivTaskList>
           <Switch>
-            <Redirect exact from="/todo" to="/todo/all" />
-            <Route exact path="/todo/all">
+            <Route exact path="/todolist/all">
               <Tasks
                 tasks={tasks}
                 deleteTask={deleteTask}
@@ -153,7 +149,7 @@ export const TodoApp = () => {
                 filterType="all"
               />
             </Route>
-            <Route exact path="/todo/active">
+            <Route exact path="/todolist/active">
               <Tasks
                 tasks={tasks}
                 deleteTask={deleteTask}
@@ -161,7 +157,7 @@ export const TodoApp = () => {
                 filterType="active"
               />
             </Route>
-            <Route exact path="/todo/completed">
+            <Route exact path="/todolist/completed">
               <Tasks
                 tasks={tasks}
                 deleteTask={deleteTask}

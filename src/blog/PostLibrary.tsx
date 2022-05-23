@@ -1,4 +1,5 @@
 import { BlogContext } from "./BlogContext";
+import { DefaultPost } from "./OnePost";
 import { Link } from "react-router-dom";
 import { themes } from "./Theme";
 import { urls } from "./config";
@@ -12,9 +13,14 @@ const DivWrapper = styled.div`
   max-width: 880px;
 `;
 const DivPostLink = styled(Link)`
+  font-size: 1.2em;
   text-decoration: ${themes.textDecoration};
   color: ${themes.primaryColor};
   padding: 0.5em;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 export const PostLibrary = () => {
   const posts = useContext(BlogContext);
@@ -28,6 +34,10 @@ export const PostLibrary = () => {
           </DivPostLink>
         );
       })}
+      <DivPostLink to={urls.DEFAULT_POST}>
+        <br />
+        default post
+      </DivPostLink>
     </DivWrapper>
   );
 };

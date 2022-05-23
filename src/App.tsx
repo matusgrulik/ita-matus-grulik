@@ -2,6 +2,7 @@ import { BlogApp } from "./blog/BlogApp";
 import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
 import { CounterInRedux, store } from "./CounterRedux/CounterApp";
 import { HackerTyper } from "./hackerTyper/HackerTyper";
+import { HomePage } from "./homePage/homePage";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { PexesoApp } from "./Pexeso/PexesoApp";
 import { Provider } from "react-redux";
@@ -81,9 +82,7 @@ export default function App() {
           </Route>
 
           <Route path={appUrls.HOME_PAGE}>
-            <DivWrapper>
-              <h1>HOMEWORKS</h1>
-            </DivWrapper>
+            <HomePage />
           </Route>
 
           <Provider store={store}>

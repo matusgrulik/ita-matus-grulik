@@ -13,6 +13,10 @@ const CardDiv = styled.div`
   transition: 0.5s;
   text-align: ${themes.textAlign};
   font-size: 4.5em;
+
+  &:hover {
+    border: 5px solid ${themes.secondaryColor};
+  }
 `;
 
 type CardProps = {

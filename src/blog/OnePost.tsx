@@ -25,3 +25,10 @@ export const OnePost = (props: { post: PostState }) => (
     <Markdown>{props.post.postText}</Markdown>
   </DivWrapper>
 );
+export const DefaultPost = () => (
+  <DivWrapper>
+    <H3>Default Post</H3>
+    <H6>from Author</H6>
+    <Markdown>This post was created as default.</Markdown>
+  </DivWrapper>
+);

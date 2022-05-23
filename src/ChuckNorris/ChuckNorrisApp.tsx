@@ -1,4 +1,5 @@
 import { CategoryJoke } from "./CategoryJoke";
+import { Helmet } from "react-helmet";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { RandomJokes } from "./RandomJokes";
 import { themes } from "./Theme";
@@ -18,7 +19,7 @@ const H1 = styled.h1`
   font-family: ${themes.primaryFont};
   color: ${themes.secondaryColor};
   text-transform: ${themes.textTransform};
-  font-size: 3em;
+  font-size: 2em;
   margin-top: 2em;
 `;
 
@@ -114,6 +115,9 @@ export const ChuckNorrisApp = () => {
 
   return (
     <DivWrapper>
+      <Helmet>
+        <title>Chunk Norris Jokes</title>
+      </Helmet>
       <H1>Chuck Norris Jokes</H1>
       <Router>
         {loading && (

@@ -1,4 +1,5 @@
 import { GetAllReduxActions, GetStateFromReducers } from "./utils";
+import { Helmet } from "react-helmet";
 import { combineReducers, createStore } from "redux";
 import { theme } from "./Theme";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ const H1 = styled.h1`
   font-family: ${theme.primaryFont};
   padding-top: 1.5em;
   color: ${theme.primaryColor};
-  font-size: 3em;
+  font-size: 2em;
 `;
 
 const H2 = styled.h2`
@@ -19,6 +20,7 @@ const H2 = styled.h2`
   padding-bottom: 2em;
   color: ${theme.primaryColor};
   width: 100%;
+  font-size: 1.5em;
   font-weight: inherit;
 `;
 const DivWrapper = styled.div`
@@ -129,6 +131,9 @@ export const CounterInRedux = () => {
 
   return (
     <DivWrapper>
+      <Helmet>
+        <title>Counter in Redux</title>
+      </Helmet>
       <H1>Counter in Redux </H1>
       <H2>Your current number is: {count} </H2>
       <Button
