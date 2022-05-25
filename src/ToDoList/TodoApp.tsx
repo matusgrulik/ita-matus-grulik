@@ -1,4 +1,3 @@
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Helmet } from "react-helmet";
 import { LinkActive, LinkAll, LinkCompleted } from "./UrlBasement";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
