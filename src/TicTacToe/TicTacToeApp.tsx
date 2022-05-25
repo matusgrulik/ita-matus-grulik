@@ -1,16 +1,28 @@
+import { Helmet } from "react-helmet";
 import { TicTacToeBoard } from "./Components/Board";
 import { checkAll } from "./Components/WinLogic";
 import { theme } from "./Theme";
-import { useEffect, useRef, useState } from "react";
-import React, { Component } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+const H1 = styled.h1`
+  color: ${theme.primaryColor};
+  text-align: ${theme.textAlign};
+  font-size: 2em;
+`;
+const H2 = styled.h2`
+  color: ${theme.primaryColor};
+  text-align: ${theme.textAlign};
+  font-size: 1.5em;
+`;
 
 const DivWrapper = styled.div`
   max-width: 880px;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 const Reset = styled.button`
   text-align: center;
@@ -69,6 +81,11 @@ export const TicTacToeApp = () => {
   };
   return (
     <DivWrapper>
+      <Helmet>
+        <title>Tic Tac Toe</title>
+      </Helmet>
+      <H1>TIC TAC TOE</H1>
+      <H2>Player on turn: {turn}</H2>
       <TicTacToeBoard squares={boardSquares} onClick={cellClickHandler} />
       <Reset onClick={resetGame}>RESET GAME</Reset>
     </DivWrapper>

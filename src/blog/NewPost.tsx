@@ -18,6 +18,7 @@ const ErrorDiv = styled.div`
 
 const Label = styled.label`
   text-transform: ${themes.textTransform};
+  font-weight: bold;
   margin: 0.5em;
   color: ${themes.primaryColor};
   font-family: ${themes.secondaryFont};
@@ -26,9 +27,7 @@ const Label = styled.label`
 const Button = styled.button`
   padding: 0.5em 1em;
   font-size: 1em;
-  position: relative;
-  top: 1.5em;
-  left: 8em;
+  margin-right: 2em;
   border-radius: 5px;
   color: ${themes.primaryColor};
   text-transform: ${themes.textTransform};
@@ -47,15 +46,19 @@ const Input = styled.input`
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-wrap: wrap;
+  text-align: center;
   max-width: 800px;
   margin: auto;
 `;
 
 const InputDiv = styled.div`
   width: 50%;
-  margin: 1.5em 0 2em 0;
+  margin: 1.5em 0 2em 11em;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 15em;
 `;
 const inputsSchema = yup.object().shape({
   postTitle: yup.string().required("Post Title is required"),
@@ -111,14 +114,14 @@ export const NewPost = () => {
         <InputDiv>
           <ErrorDiv>{form.formState.errors.textArea?.message}</ErrorDiv>
           <Label>Text Area</Label>
-          <textarea
+          <TextArea
             {...form.register("textArea")}
             required
             name="textArea"
             placeholder="#markdown"
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
-          ></textarea>
+          ></TextArea>
         </InputDiv>
         <div>
           <Button onClick={form.handleSubmit(submitForm)}>Submit</Button>

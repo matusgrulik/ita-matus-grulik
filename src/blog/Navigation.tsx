@@ -1,7 +1,7 @@
 import { BlogContext } from "./BlogContext";
+import { DefaultPost, OnePost } from "./OnePost";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { NewPost } from "./NewPost";
-import { OnePost } from "./OnePost";
 import { PostLibrary } from "./PostLibrary";
 import { themes } from "./Theme";
 import { urls } from "./config";
@@ -9,7 +9,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 const Nav = styled.nav`
-  margin-top: 5em;
+  margin-top: 3em;
   font-family: ${themes.secondaryFont};
 `;
 
@@ -17,15 +17,14 @@ const LinkNav = styled(Link)`
   text-decoration: ${themes.textDecoration};
   text-transform: ${themes.textTransform};
   color: ${themes.primaryColor};
-  padding: 0.5em;
   width: 100%;
+  font-size: 2em;
+  font-weight: bold;
   text-align: ${themes.textAlign};
   margin: 1em;
-  border: 2px solid ${themes.primaryColor};
-  border-radius: 5px;
 
   &:hover {
-    font-weight: bold;
+    font-size: 1.8em;
   }
 `;
 
@@ -56,6 +55,9 @@ export const Navigation = () => {
               <OnePost post={post} />
             </Route>
           ))}
+          <Route path={urls.DEFAULT_POST}>
+            <DefaultPost />
+          </Route>
           <Route path={urls.BASE}>
             <PostLibrary />
           </Route>

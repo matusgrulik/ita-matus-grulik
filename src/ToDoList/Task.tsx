@@ -7,7 +7,9 @@ const DivTask = styled.div<{ completed: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2em;
+  font-size: 0.75em;
+  max-heigh: 2em;
+  overflow: auto;
   margin-top: 5px;
   padding: 5px 10px;
   border: 1px solid ${themes.primaryColor};

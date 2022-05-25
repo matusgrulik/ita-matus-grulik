@@ -1,4 +1,5 @@
 import { CardGrid } from "./Grid";
+import { Helmet } from "react-helmet";
 import { Newgame } from "./NewGame";
 import { themes } from "./Theme";
 import { useState } from "react";
@@ -14,7 +15,7 @@ const DivWrapper = styled.div`
 const H1 = styled.h1`
   text-align: ${themes.textAlign};
   text-transform: ${themes.textTransform};
-  font-size: 4em;
+  font-size: 2em;
   color: ${themes.secondaryColor};
   font-family: ${themes.primaryFont};
   margin: 0 auto 0.2em auto;
@@ -116,6 +117,9 @@ export const PexesoApp = () => {
   };
   return (
     <DivWrapper>
+      <Helmet>
+        <title>Pexeso</title>
+      </Helmet>
       <H1>Pexeso</H1>
       <Newgame NewGame={NewGame} moves={moves} />
       <CardGrid cards={cards} selectCard={selectCard} />

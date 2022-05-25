@@ -11,12 +11,12 @@ const NavLinkStyled = styled(NavLink)`
   }
 `;
 export const LinkAll = () => {
-  return <NavLinkStyled to="/todo/all">All</NavLinkStyled>;
+  return <NavLinkStyled to="/todolist/all">All</NavLinkStyled>;
 };
 
 export const LinkActive = () => {
-  return <NavLinkStyled to="/todo/active">Active</NavLinkStyled>;
+  return <NavLinkStyled to="/todolist/active">Active</NavLinkStyled>;
 };
 export const LinkCompleted = () => {
-  return <NavLinkStyled to="/todo/completed">Completed</NavLinkStyled>;
+  return <NavLinkStyled to="/todolist/completed">Completed</NavLinkStyled>;
 };
