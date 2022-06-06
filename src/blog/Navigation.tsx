@@ -14,17 +14,15 @@ const Nav = styled.nav`
 `;
 
 const LinkNav = styled(Link)`
-  text-decoration: ${themes.textDecoration};
   text-transform: ${themes.textTransform};
   color: ${themes.primaryColor};
   width: 100%;
   font-size: 2em;
-  font-weight: bold;
   text-align: ${themes.textAlign};
   margin: 1em;
 
   &:hover {
-    font-size: 1.8em;
+    font-weight: bold;
   }
 `;
 

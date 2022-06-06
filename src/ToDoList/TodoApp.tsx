@@ -32,8 +32,8 @@ const DivTaskList = styled.div`
 const DivWrapper = styled.div`
   font-family: ${themes.primaryFont};
   margin-top: 10em;
-  margin-left: 30em;
-  width: 50%;
+  margin: auto;
+  width: 80%;
 `;
 
 const Button = styled.button`

@@ -23,6 +23,7 @@ const DivWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
 `;
 const Reset = styled.button`
   text-align: center;

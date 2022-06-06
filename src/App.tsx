@@ -1,11 +1,18 @@
+import { AiOutlineHome } from "react-icons/ai";
 import { BlogApp } from "./blog/BlogApp";
+import { BsFillFilePostFill } from "react-icons/bs";
 import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
 import { CounterInRedux, store } from "./CounterRedux/CounterApp";
+import { FaClipboardList, FaRegSmileBeam } from "react-icons/fa";
+import { GiTicTacToe } from "react-icons/gi";
 import { HackerTyper } from "./hackerTyper/HackerTyper";
 import { HomePage } from "./homePage/homePage";
+import { IoIosImages } from "react-icons/io";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { MdOutlineCalculate } from "react-icons/md";
 import { PexesoApp } from "./Pexeso/PexesoApp";
 import { Provider } from "react-redux";
+import { SiHackerrank } from "react-icons/si";
 import { TicTacToeApp } from "./TicTacToe/TicTacToeApp";
 import { TodoApp } from "./ToDoList/TodoApp";
 import { appUrls } from "./config";
@@ -14,14 +21,38 @@ import styled from "styled-components";
 const DivWrapper = styled.div`
   display: flex;
   font-size: 1.5em;
+  font-weight: bold;
   margin: 2em;
+  align-items: center;
   justify-content: center;
+  flex-direction: row;
+  @media (max-width: 950px) {
+    text-align: center;
+    flex-direction: column;
+  }
+  @media (max-width: 1865px) {
+    font-size: 1.4em;
+  }
 `;
 const LinkNav = styled(Link)`
-  margin: 1em;
+  max-width: 12.5%;
+  text-align: center;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  margin: 0.8em;
   text-decoration: none;
   color: #000000;
   text-transform: uppercase;
+
+  @media (max-width: 950px) {
+    max-width: 100%;
+    margin: 0.5em;
+  }
+  @media (max-width: 1740px) {
+    margin: 0.5em;
+  }
+`;
+const TextDiv = styled.div`
+  max-width: 100%;
 `;
 export default function App() {
   return (
@@ -29,30 +60,30 @@ export default function App() {
       <div>
         <nav>
           <DivWrapper>
-            <div>
-              <LinkNav to={appUrls.HOME_PAGE}>Home Page</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.HACKER_TYPER}>Hacker Typer</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.TO_DO_LIST}>To Do List</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.BLOG}>Blog</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.TIC_TAC_TOE}>Tic Tac Toe</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.PEXESO}>Pexeso</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.CHUNK_NORRIS}>Chunk Norris</LinkNav>
-            </div>
-            <div>
-              <LinkNav to={appUrls.REDUX_COUNTER}>Counter in redux</LinkNav>
-            </div>
+            <LinkNav to={appUrls.HOME_PAGE}>
+              <AiOutlineHome /> <TextDiv>Home Page</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.HACKER_TYPER}>
+              <SiHackerrank /> <TextDiv>Hacker Typer</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.TO_DO_LIST}>
+              <FaClipboardList /> <TextDiv>To Do List</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.BLOG}>
+              <BsFillFilePostFill /> <TextDiv>Blog</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.TIC_TAC_TOE}>
+              <GiTicTacToe /> <TextDiv>Tic Tac Toe</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.PEXESO}>
+              <IoIosImages /> <TextDiv>Pexeso</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.CHUNK_NORRIS}>
+              <FaRegSmileBeam /> <TextDiv>Chunk Norris</TextDiv>
+            </LinkNav>
+            <LinkNav to={appUrls.REDUX_COUNTER}>
+              <MdOutlineCalculate /> <TextDiv>Counter in redux</TextDiv>
+            </LinkNav>
           </DivWrapper>
         </nav>
 
