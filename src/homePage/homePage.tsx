@@ -1,12 +1,25 @@
+import { Helmet } from "react-helmet";
 import { themes } from "./Theme";
 import styled from "styled-components";
 
 const DivWrapper = styled.div`
+  position: absolute;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: ${themes.primaryFont};
+  margin: auto;
   text-align: center;
-  margin-top: 20em;
-  margin-left: 30em;
-  width: 50%;
+`;
+const TextWrapper = styled.div`
+  max-width: 50%;
+
+  @media (max-width: 1400px) {
+    margin-top: 2em;
+    max-width: 80%;
+    margin-bottom: 3em;
+  }
 `;
 const H1 = styled.h1`
   font-size: 2em;
@@ -29,20 +42,25 @@ const LinkGitHub = styled.a`
 export const HomePage = () => {
   return (
     <DivWrapper>
-      <H1>This application cater to presentation of my projects</H1>
-      <H2>Author: Matúš Grúlik</H2>
-      <TextDiv>
-        At this page You can see all applications I was doing during my course
-        of learning react front-end development. Up on the page there is a
-        navigation which contains link to every application, so You can try
-        them. Also there is a link to GitHub repository of this project so You
-        can check the code.
-      </TextDiv>
-      <LinkDiv>
-        <LinkGitHub href="https://github.com/matusgrulik/ita-matus-grulik">
-          GitHub repository
-        </LinkGitHub>
-      </LinkDiv>
+      <Helmet>
+        <title> Home Page</title>
+      </Helmet>
+      <TextWrapper>
+        <H1>This web page is used to present my projects</H1>
+        <H2>Author: Matúš Grúlik</H2>
+        <TextDiv>
+          At this page You can see all applications I was doing during my course
+          of learning react front-end development. Up on the page there is a
+          navigation which contains link to every application, so You can try
+          them. Also there is a link to GitHub repository of this project so You
+          can check the code.
+        </TextDiv>
+        <LinkDiv>
+          <LinkGitHub href="https://github.com/matusgrulik/ita-matus-grulik">
+            GitHub repository
+          </LinkGitHub>
+        </LinkDiv>
+      </TextWrapper>
     </DivWrapper>
   );
 };

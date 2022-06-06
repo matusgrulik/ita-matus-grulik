@@ -10,7 +10,10 @@ const DivWrapper = styled.div`
   line-height: 1.5;
   display: flex;
   flex-wrap: wrap;
-  max-width: 880px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 `;
 const DivPostLink = styled(Link)`
   font-size: 1.2em;

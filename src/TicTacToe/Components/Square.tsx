@@ -9,6 +9,15 @@ const DivWrapper = styled.div`
   height: 50px;
   text-align: ${theme.textAlign};
   font-size: ${theme.fontSize};
+
+  @media (max-width: 570px) {
+    width: 45px;
+    height: 45px;
+  }
+  @media (max-width: 522px) {
+    width: 42px;
+    height: 42px;
+  }
 `;
 
 type SquareProps = {

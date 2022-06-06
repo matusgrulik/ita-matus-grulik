@@ -5,7 +5,7 @@ import { themes } from "./Theme";
 import styled from "styled-components";
 
 const DivWrapper = styled.div`
-  max-width: 880px;
+  max-width: 80%;
   margin: auto;
 `;
 

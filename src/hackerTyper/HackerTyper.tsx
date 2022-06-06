@@ -12,7 +12,6 @@ const TextArea = styled.textarea`
   padding: 15px 20px;
   font-size: ${theme.fontSize};
   color: #00ff00;
-  margin-left: ${theme.marginLeft};
 `;
 
 const DivTitle = styled.div`
@@ -25,13 +24,13 @@ const DivTitleBar = styled.div`
   border-radius: 10px 10px 0 0;
   padding: 10px 15px;
   color: ${theme.secondaryColor};
-  margin-left: ${theme.marginLeft};
 `;
 
 const DivWindow = styled.div`
   display: flex;
   flex-direction: column;
   width: 90vw;
+  margin: auto;
   min-height: 450px;
 `;
 

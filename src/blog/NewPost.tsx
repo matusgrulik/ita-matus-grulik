@@ -47,13 +47,20 @@ const Input = styled.input`
 
 const Form = styled.form`
   text-align: center;
-  max-width: 800px;
+  max-width: 100%;
   margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const InputDiv = styled.div`
   width: 50%;
-  margin: 1.5em 0 2em 11em;
+  margin: 1.5em 0 1em;
+
+  @media (max-width: 600px) {
+    width: 80%;
+  }
 `;
 
 const TextArea = styled.textarea`
