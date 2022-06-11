@@ -19,8 +19,8 @@ const DivWrapper = styled.div`
     height: 42px;
   }
   @media (max-width: 500px) {
-    widht: 40px;
-    height: 40px;
+    widht: 35px;
+    height: 35px;
   }
 `;
 
