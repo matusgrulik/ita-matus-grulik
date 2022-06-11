@@ -13,6 +13,10 @@ const DivWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+
+  @media (max-width: 500px) {
+    margin: 0 auto;
+  }
 `;
 
 type BoardProps = {
