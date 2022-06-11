@@ -18,6 +18,10 @@ const DivWrapper = styled.div`
     width: 42px;
     height: 42px;
   }
+  @media (max-width: 500px) {
+    widht: 40px;
+    height: 40px;
+  }
 `;
 
 type SquareProps = {
