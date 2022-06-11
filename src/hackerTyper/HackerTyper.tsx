@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const TextArea = styled.textarea`
   height: 70vh;
-  min-width: 350px;
   background: ${theme.primaryColor};
   border: 3px solid ${theme.secondaryColor};
   padding: 15px 20px;

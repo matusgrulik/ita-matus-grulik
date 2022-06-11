@@ -20,7 +20,7 @@ import styled from "styled-components";
 
 const DivWrapper = styled.div`
   display: flex;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: bold;
   margin: 2em;
   align-items: center;
@@ -31,11 +31,11 @@ const DivWrapper = styled.div`
     flex-direction: column;
   }
   @media (max-width: 1865px) {
-    font-size: 1.4em;
+    font-size: 1.3em;
   }
 `;
 const LinkNav = styled(Link)`
-  max-width: 12.5%;
+  max-width: 13%;
   text-align: center;
   font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
   margin: 0.8em;
