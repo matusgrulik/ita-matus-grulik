@@ -20,6 +20,9 @@ const DivWrapper = styled.div`
   @media (max-width: 512px) {
     max-width: 400px;
   }
+  @media (max-width: 499px) {
+    max-width: 300px;
+  }
 `;
 
 type BoardProps = {
