@@ -5,22 +5,17 @@ import styled from "styled-components";
 const DivWrapper = styled.div`
   border: 2px solid ${theme.primaryColor};
   color: ${theme.primaryColor};
-  width: 50px;
-  height: 50px;
+  width: 1.2em;
+  height: 1.2em;
   text-align: ${theme.textAlign};
   font-size: ${theme.fontSize};
-
-  @media (max-width: 570px) {
-    width: 45px;
-    height: 45px;
+  @media (max-width: 573px) {
+    width: 1.1em;
+    height: 1.1em;
   }
-  @media (max-width: 522px) {
-    width: 42px;
-    height: 42px;
-  }
-  @media (max-width: 500px) {
-    widht: 40px;
-    height: 40px;
+  @media (max-width: 512px) {
+    width: 0.9em;
+    height: 0.9em;
   }
 `;
 
