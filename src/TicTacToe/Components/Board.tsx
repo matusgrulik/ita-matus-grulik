@@ -14,8 +14,11 @@ const DivWrapper = styled.div`
   flex-wrap: wrap;
   align-items: center;
 
-  @media (max-width: 500px) {
-    margin: 0 auto;
+  @media (max-width: 573px) {
+    max-width: 480px;
+  }
+  @media (max-width: 512px) {
+    max-width: 400px;
   }
 `;
 
