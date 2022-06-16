@@ -18,8 +18,8 @@ const DivWrapper = styled.div`
     height: 0.9em;
   }
   @media (max-width: 499px) {
-    width: 0.7em;
-    height: 0.7em;
+    width: 0.65em;
+    height: 0.65em;s
   }
 `;
 
