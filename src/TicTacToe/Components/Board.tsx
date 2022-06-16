@@ -21,7 +21,7 @@ const DivWrapper = styled.div`
     max-width: 400px;
   }
   @media (max-width: 499px) {
-    max-width: 300px;
+    max-width: 320px;
   }
 `;
 
