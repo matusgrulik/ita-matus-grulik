@@ -10,16 +10,13 @@ const DivWrapper = styled.div`
   text-align: ${theme.textAlign};
   font-size: ${theme.fontSize};
   @media (max-width: 573px) {
-    width: 1.1em;
-    height: 1.1em;
+    font-size: 2.25rem;
   }
   @media (max-width: 512px) {
-    width: 0.9em;
-    height: 0.9em;
+    font-size: 1.8rem;
   }
   @media (max-width: 499px) {
-    width: 0.65em;
-    height: 0.65em;s
+    font-size: 1rem;
   }
 `;
 
