@@ -16,7 +16,7 @@ const DivWrapper = styled.div`
     font-size: 1.8rem;
   }
   @media (max-width: 499px) {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 `;
 
