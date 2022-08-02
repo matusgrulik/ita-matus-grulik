@@ -1,5 +1,6 @@
 export const appUrls = {
   HOME_PAGE: "/home-page",
+  APPLIFTING: "/applifting",
   HACKER_TYPER: "/hacker-typer",
   TO_DO_LIST: "/todolist/all",
   BLOG: "/blog",
