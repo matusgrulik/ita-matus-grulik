@@ -1,24 +1,21 @@
 import { BlogContext, BlogContextProvider } from "./blogContext";
-import { DefaultPost } from "./oneArticle";
+import { DefaultPost, OneArticle } from "./oneArticle";
 import { Helmet } from "react-helmet";
 import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { LogIn } from "./logIn";
 import { MyArticles } from "./MyArticles";
 import { NewArticle } from "./createArticle";
-import { OneArticle } from "./oneArticle";
 import { RecentArticles } from "./recentArticles";
 import { appliftUrls } from "./config";
 import { useContext } from "react";
 import cat from "./img/cat.png";
 import styled from "styled-components";
-
 const DivWrapper = styled.div`
   max-width: 1600px;
   height: 2000px;
   margin: auto;
   border: 1px solid #f8f9fa;
 `;
-
 const Nav = styled.div`
   position: absolute;
   width: 1600px;
@@ -41,7 +38,6 @@ const MenuItems = styled.div`
   align-items: center;
   padding: 11px 7px;
   gap: 40px;
-
   position: absolute;
   width: 206px;
   height: 46px;
@@ -50,7 +46,7 @@ const MenuItems = styled.div`
 const RecentArticlesLink = styled(Link)`
   width: 109px;
   height: 24px;
-  font-family: "Helvetica Neue";
+  font-family: “Helvetica Neue”;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -64,7 +60,7 @@ const RecentArticlesLink = styled(Link)`
 const AboutLink = styled(Link)`
   width: 43px;
   height: 24px;
-  font-family: "Helvetica Neue";
+  font-family: “Helvetica Neue”;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -81,7 +77,7 @@ const LogInLink = styled(Link)`
   height: 24px;
   left: 1100px;
   top: 14px;
-  font-family: "Helvetica Neue";
+  font-family: “Helvetica Neue”;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -89,11 +85,10 @@ const LogInLink = styled(Link)`
   color: #2b7efb;
   text-decoration: none;
 `;
-
 const CreateArticleLink = styled(Link)`
   width: 100px;
   height: 24px;
-  font-family: "Helvetica Neue";
+  font-family: “Helvetica Neue”;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -107,7 +102,7 @@ const CreateArticleLink = styled(Link)`
 const MyArticlesLink = styled(Link)`
   width: 100px;
   height: 24px;
-  font-family: "Helvetica Neue";
+  font-family: “Helvetica Neue”;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -118,61 +113,63 @@ const MyArticlesLink = styled(Link)`
   flex-grow: 0;
   text-decoration: none;
 `;
-
-export const Applifting = () => {
+export const AppliftingComponent = () => {
   const articles = useContext(BlogContext);
   return (
-    <Router>
-      <BlogContextProvider>
-        <DivWrapper>
-          <Helmet>
-            <title>Applifting Blog</title>
-          </Helmet>
-          <Nav>
-            <CatLogo src={cat} alt="cat logo" />
-            <MenuItems>
-              <RecentArticlesLink to={appliftUrls.RECENT_ARTICLES}>
-                Recent Articles
-              </RecentArticlesLink>
-              <AboutLink to={appliftUrls.ABOUT}>About</AboutLink>
-              <LogInLink to={appliftUrls.LOG_IN}>Log in</LogInLink>
-              <CreateArticleLink to={appliftUrls.CREATE_ARTICLE}>
-                Create article
-              </CreateArticleLink>
-              <MyArticlesLink to={appliftUrls.MY_ARTICLES}>
-                My articles
-              </MyArticlesLink>
-            </MenuItems>
-          </Nav>
-
-          <Switch>
-            <Route path={appliftUrls.CREATE_ARTICLE}>
-              <NewArticle />
+    <DivWrapper>
+      <Helmet>
+        <title>Applifting Blog</title>
+      </Helmet>
+      <Nav>
+        <CatLogo src={cat} alt="cat logo" />
+        <MenuItems>
+          <RecentArticlesLink to={appliftUrls.RECENT_ARTICLES}>
+            Recent Articles
+          </RecentArticlesLink>
+          <AboutLink to={appliftUrls.ABOUT}>About</AboutLink>
+          <LogInLink to={appliftUrls.LOG_IN}>Log in</LogInLink>
+          <CreateArticleLink to={appliftUrls.CREATE_ARTICLE}>
+            Create article
+          </CreateArticleLink>
+          <MyArticlesLink to={appliftUrls.MY_ARTICLES}>
+            My articles
+          </MyArticlesLink>
+        </MenuItems>
+      </Nav>
+      <Switch>
+        <Route path={appliftUrls.CREATE_ARTICLE}>
+          <NewArticle />
+        </Route>
+        <Route path={appliftUrls.RECENT_ARTICLES}>
+          <RecentArticles />
+        </Route>
+        {articles?.articles.map((article, index) => {
+          return (
+            <Route
+              key={index}
+              path={appliftUrls.oneArticle(article.slug, article.id)}
+            >
+              <OneArticle article={article} />
             </Route>
-
-            <Route path={appliftUrls.RECENT_ARTICLES}>
-              <RecentArticles />
-            </Route>
-            {articles.articles.map((article, index) => (
-              <Route
-                key={index}
-                path={appliftUrls.oneArticle(article.slug, article.id)}
-              >
-                <OneArticle article={article}></OneArticle>
-              </Route>
-            ))}
-            <Route path={appliftUrls.DEFAULT_POST}>
-              <DefaultPost />
-            </Route>
-            <Route path={appliftUrls.MY_ARTICLES}>
-              <MyArticles />
-            </Route>
-            <Route path={appliftUrls.LOG_IN}>
-              <LogIn />
-            </Route>
-          </Switch>
-        </DivWrapper>
-      </BlogContextProvider>
-    </Router>
+          );
+        })}
+        <Route path={appliftUrls.DEFAULT_POST}>
+          <DefaultPost />
+        </Route>
+        <Route path={appliftUrls.MY_ARTICLES}>
+          <MyArticles />
+        </Route>
+        <Route path={appliftUrls.LOG_IN}>
+          <LogIn />
+        </Route>
+      </Switch>
+    </DivWrapper>
   );
 };
+export const Applifting = () => (
+  <Router>
+    <BlogContextProvider>
+      <AppliftingComponent />
+    </BlogContextProvider>
+  </Router>
+);

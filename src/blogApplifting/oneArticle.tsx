@@ -27,7 +27,7 @@ const H1 = styled.h1`
   line-height: 48px;
   color: #000000;
 `;
-const AuthorAndDateDiv = styled.div`
+const AuthorDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,19 +52,7 @@ const AuthorP = styled.p`
   order: 0;
   flex-grow: 0;
 `;
-const DateP = styled.p`
-  width: 63px;
-  height: 20px;
-  font-family: "Helvetica Neue";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #6c757d;
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-`;
+
 const MarkdownDiv = styled.div`
   width: 760px;
   height: 1020px;
@@ -82,10 +70,9 @@ const MarkdownDiv = styled.div`
 export const OneArticle = (props: { article: ArticleState }) => (
   <DivWrapper>
     <H1>{props.article.title}</H1>
-    <AuthorAndDateDiv>
+    <AuthorDiv>
       <AuthorP>{props.article.author}</AuthorP>
-      <DateP>{props.article.date}</DateP>
-    </AuthorAndDateDiv>
+    </AuthorDiv>
     <MarkdownDiv>
       <Markdown>{props.article.content}</Markdown>
     </MarkdownDiv>
@@ -94,10 +81,9 @@ export const OneArticle = (props: { article: ArticleState }) => (
 export const DefaultPost = () => (
   <DivWrapper>
     <H1>Default post</H1>
-    <AuthorAndDateDiv>
+    <AuthorDiv>
       <AuthorP>Author</AuthorP>
-      <DateP>1.8.2022</DateP>
-    </AuthorAndDateDiv>
+    </AuthorDiv>
     <MarkdownDiv>
       <Markdown>
         This post was created as default. Lorem ipsum dolor sit amet,

@@ -5,14 +5,13 @@ export type ArticleState = {
   title: string;
   author: string;
   description: string;
-  date: number;
+
   content: string;
   id: string;
   slug: string;
 };
 const STORAGE_NAME = "appliftingBlog";
 const useBlogLogic = () => {
-  const d = new Date();
   const [articles, setArticles] = useLocalStorage<ArticleState[]>(
     STORAGE_NAME,
     []
@@ -28,7 +27,6 @@ const useBlogLogic = () => {
       title: newTitle,
       author: newAuthor,
       description: newDescription,
-      date: d.getTime(),
       content: newContent,
       id: getId(),
       slug: newSlug,
