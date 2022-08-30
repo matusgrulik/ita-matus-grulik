@@ -1,10 +1,8 @@
 import { AiOutlineHome } from "react-icons/ai";
-import { Applifting } from "./blogApplifting/appliftingBlog";
 import { BlogApp } from "./blog/BlogApp";
 import { BsFillFilePostFill } from "react-icons/bs";
 import { ChuckNorrisApp } from "./ChuckNorris/ChuckNorrisApp";
 import { CounterInRedux, store } from "./CounterRedux/CounterApp";
-import { FaCat } from "react-icons/fa";
 import { FaClipboardList, FaRegSmileBeam } from "react-icons/fa";
 import { GiTicTacToe } from "react-icons/gi";
 import { HackerTyper } from "./hackerTyper/HackerTyper";
@@ -65,10 +63,6 @@ export default function App() {
             <LinkNav to={appUrls.HOME_PAGE}>
               <AiOutlineHome /> <TextDiv>Home Page</TextDiv>
             </LinkNav>
-            <LinkNav to={appUrls.APPLIFTING}>
-              <FaCat />
-              <TextDiv>Applifting Blog</TextDiv>
-            </LinkNav>
             <LinkNav to={appUrls.HACKER_TYPER}>
               <SiHackerrank /> <TextDiv>Hacker Typer</TextDiv>
             </LinkNav>
@@ -94,9 +88,6 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path={appUrls.APPLIFTING}>
-            <Applifting />
-          </Route>
           <Route path={appUrls.HACKER_TYPER}>
             <HackerTyper />
           </Route>

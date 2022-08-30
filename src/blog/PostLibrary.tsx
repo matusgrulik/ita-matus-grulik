@@ -1,5 +1,4 @@
 import { BlogContext } from "./BlogContext";
-import { DefaultPost } from "./OnePost";
 import { Link } from "react-router-dom";
 import { themes } from "./Theme";
 import { urls } from "./config";
